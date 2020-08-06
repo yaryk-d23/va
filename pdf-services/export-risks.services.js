@@ -151,7 +151,7 @@ function getRisksPdfStyles(startY) {
       overflow: "linebreak",
       fillColor: false,
       textColor: [25, 25, 25],
-      fontSize: 10,
+      fontSize: 8,
       fontStyle: "normal",
       valign: "middle",
       halign: "center",
@@ -159,30 +159,34 @@ function getRisksPdfStyles(startY) {
     },
     showHeader: "everyPage",
     headerStyles: {
+      fontSize: 10,
       fillColor: [132, 151, 176],
       textColor: [0],
       lineWidth: 1,
       lineColor: [0],
       halign: "center",
       overflow: "linebreak",
-      minCellWidth: 40,
+      minCellWidth: 54,
     },
     alternateRowStyles: {
       fillColor: false,
       lineWidth: 0,
       lineColor: [255, 255, 255],
     },
-    pageBreak: "avoid",
+    pageBreak: "auto",
   };
 }
 function getRisksListData() {
+  var siteUrl = _spPageContextInfo
+    ? _spPageContextInfo.webAbsoluteUrl
+    : "https://dvagov.sharepoint.com/sites/VACOOMOBO/FROS/a123"
   return $.ajax({
     beforeSend: function (xhrObj) {
       xhrObj.setRequestHeader("Content-Type", "application/json");
       xhrObj.setRequestHeader("Accept", "application/json");
     },
     type: "GET",
-    url: "/_api/web/lists/getbytitle('Risks Assessments')/items",
+    url: siteUrl + "/_api/web/lists/getbytitle('Risk Assessment')/items",
     dataType: "json",
   }).then(function (res) {
     return res.value;
