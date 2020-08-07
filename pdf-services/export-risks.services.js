@@ -2,40 +2,45 @@ function generateRisksPdf(data) {
   var doc = new jsPDF({
     orientation: "landscape",
     unit: "pt",
-    lineHeight: 1.3,
   });
   doc.setFont("helvetica");
   doc.setFontSize(12);
 
   // add pdf header
-  let cols = [
-    {
-      title: "",
-      dataKey: "fullHeader",
-    },
-  ];
-  let table = [
-    {
-      fullHeader: "Risk Assessment",
-    },
-    {
-      fullHeader: `Purpose:`,
-    },
-  ];
-  var createdCell = (data) => {
-    if (data.row.index == 1 && data.column.dataKey === "fullHeader") {
-      data.cell.styles.fontStyle = "normal";
-      data.cell.styles.fontSize = 12;
-    }
-  };
-  var style = {
-    ...getRisksPdfStyles(0),
-    didParseCell: createdCell,
-  };
-  doc.autoTable(cols, table, style);
+  doc.setFontSize(14);
+  doc.setFontStyle("bold");
+  doc.text(10, 15, `Risk Assessment`);
+  doc.setFontSize(12);
+  doc.setFontStyle("normal");
+  doc.text(10, 30, `Purpose:`);
+  //   let cols = [
+  //     {
+  //       title: "",
+  //       dataKey: "fullHeader",
+  //     },
+  //   ];
+  //   let table = [
+  //     {
+  //       fullHeader: "Risk Assessment",
+  //     },
+  //     {
+  //       fullHeader: `Purpose:`,
+  //     },
+  //   ];
+  //   var createdCell = (data) => {
+  //     if (data.row.index == 1 && data.column.dataKey === "fullHeader") {
+  //       data.cell.styles.fontStyle = "normal";
+  //       data.cell.styles.fontSize = 12;
+  //     }
+  //   };
+  //   var style = {
+  //     ...getRisksPdfStyles(0),
+  //     didParseCell: createdCell,
+  //   };
+  //   doc.autoTable(cols, table, style);
 
   // add content
-  cols = [
+  let cols = [
     {
       title: "Risk ID",
       dataKey: "Risk_x0020_ID",
@@ -97,14 +102,26 @@ function generateRisksPdf(data) {
       dataKey: "Risk_Assessment_Status",
     },
   ];
-  table = data;
-  createdCell = (data) => {
-    data.cell.styles.fontSize = 10;
-    data.cell.styles.lineWidth = 1;
-    data.cell.styles.lineColor = [0, 0, 0];
+  let table = data.map((i) => {
+    return {
+      ...i,
+      Risk_Description: i.Risk_Description ? i.Risk_Description + "\n" : "",
+    };
+  });
+
+  let createdCell = (data) => {
+    if (data.section == "body") {
+      data.cell.styles.fontSize = 8;
+      data.cell.styles.lineWidth = 1;
+      data.cell.styles.lineColor = [0, 0, 0];
+      data.cell.styles.halign = "left";
+      data.cell.styles.valign = "top";
+      data.cell.styles.cellPadding = 4;
+      data.cell.styles.fillColor = [255, 255, 255];
+    }
   };
-  var style = {
-    ...getRisksPdfStyles(doc.previousAutoTable.finalY),
+  let style = {
+    ...getRisksPdfStyles(30),
     didParseCell: createdCell,
   };
   doc.autoTable(cols, table, style);
@@ -142,8 +159,8 @@ function getRisksPdfStyles(startY) {
     },
     margin: {
       top: 10,
-      left: 5,
-      right: 5,
+      left: 10,
+      right: 10,
       bottom: 10,
     },
     styles: {
@@ -157,9 +174,9 @@ function getRisksPdfStyles(startY) {
       halign: "center",
       cellPadding: 2,
     },
-    showHeader: "everyPage",
-    headerStyles: {
-      fontSize: 10,
+    showHead: "everyPage",
+    headStyles: {
+      fontSize: 9,
       fillColor: [132, 151, 176],
       textColor: [0],
       lineWidth: 1,
@@ -168,10 +185,8 @@ function getRisksPdfStyles(startY) {
       overflow: "linebreak",
       minCellWidth: 54,
     },
-    alternateRowStyles: {
-      fillColor: false,
-      lineWidth: 0,
-      lineColor: [255, 255, 255],
+    bodyStyles: {
+      owerflow: "linebreak",
     },
     pageBreak: "auto",
   };
@@ -179,14 +194,14 @@ function getRisksPdfStyles(startY) {
 function getRisksListData() {
   var siteUrl = _spPageContextInfo
     ? _spPageContextInfo.webAbsoluteUrl
-    : "https://dvagov.sharepoint.com/sites/VACOOMOBO/FROS/a123"
+    : "https://dvagov.sharepoint.com/sites/VACOOMOBO/FROS/a123";
   return $.ajax({
     beforeSend: function (xhrObj) {
       xhrObj.setRequestHeader("Content-Type", "application/json");
       xhrObj.setRequestHeader("Accept", "application/json");
     },
     type: "GET",
-    url: siteUrl + "/_api/web/lists/getbytitle('Risk Assessment')/items",
+    url: siteUrl + "/SiteAssets/va/data.txt", //"/_api/web/lists/getbytitle('Risk Assessment')/items",
     dataType: "json",
   }).then(function (res) {
     return res.value;

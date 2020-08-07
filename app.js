@@ -4,7 +4,6 @@ $(document).ready(function () {
 
 function exportRisks() {
   getRisksListData().then((res) => {
-    console.log(res);
     generateRisksPdf(res);
   });
 }
