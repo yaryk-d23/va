@@ -13,33 +13,6 @@ function generateRisksPdf(data) {
   doc.setFontSize(12);
   doc.setFontStyle("normal");
   doc.text(10, 30, `Purpose:`);
-  //   let cols = [
-  //     {
-  //       title: "",
-  //       dataKey: "fullHeader",
-  //     },
-  //   ];
-  //   let table = [
-  //     {
-  //       fullHeader: "Risk Assessment",
-  //     },
-  //     {
-  //       fullHeader: `Purpose:`,
-  //     },
-  //   ];
-  //   var createdCell = (data) => {
-  //     if (data.row.index == 1 && data.column.dataKey === "fullHeader") {
-  //       data.cell.styles.fontStyle = "normal";
-  //       data.cell.styles.fontSize = 12;
-  //     }
-  //   };
-  //   var style = {
-  //     ...getRisksPdfStyles(0),
-  //     didParseCell: createdCell,
-  //   };
-  //   doc.autoTable(cols, table, style);
-
-  // add content
   let cols = [
     {
       title: "Risk ID",
@@ -201,7 +174,7 @@ function getRisksListData() {
       xhrObj.setRequestHeader("Accept", "application/json");
     },
     type: "GET",
-    url: siteUrl + "/SiteAssets/va/data.txt", //"/_api/web/lists/getbytitle('Risk Assessment')/items",
+    url: siteUrl + "/_api/web/lists/getbytitle('Risk Assessment')/items",
     dataType: "json",
   }).then(function (res) {
     return res.value;
