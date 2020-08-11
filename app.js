@@ -3,7 +3,7 @@ $(document).ready(function () {
 });
 
 function exportRisks() {
-  getRisksListData().then((res) => {
+  getRisksListData().then(function (res) {
     generateRisksPdf(res);
   });
 }

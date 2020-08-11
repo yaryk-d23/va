@@ -1,11 +1,10 @@
 <div>
   <button type="button" id="export-risks">Export to PDF</button>
 </div>
-<script
-  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.3.5/bluebird.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"
   integrity="sha512-jGsMH83oKe9asCpkOVkBnUrDDTp8wl+adkB2D+//JtlxO4SrLoJdhbOysIFQJloQFD+C4Fl1rMsQZF76JjV0eQ=="
-  crossorigin="anonymous"
-></script>
+  crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.6/jspdf.plugin.autotable.min.js"></script>
 <script>
@@ -14,16 +13,16 @@
     : "https://dvagov.sharepoint.com/sites/VACOOMOBO/FROS/a123/SiteAssets/app";
   document.write(
     '<script language="javascript" type="text/javascript" src="' +
-      siteUrl +
-      "/app.js?rnd=" +
-      Math.random() / 3 +
-      '"><\/script>'
+    siteUrl +
+    "/app.js?rnd=" +
+    Math.random() / 3 +
+    '"><\/script>'
   );
   document.write(
     '<script language="javascript" type="text/javascript" src="' +
-      siteUrl +
-      "/pdf-services/export-risks.services.js?rnd=" +
-      Math.random() / 3 +
-      '"><\/script>'
+    siteUrl +
+    "/pdf-services/export-risks.services.js?rnd=" +
+    Math.random() / 3 +
+    '"><\/script>'
   );
 </script>

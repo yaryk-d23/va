@@ -9,10 +9,10 @@ function generateRisksPdf(data) {
   // add pdf header
   doc.setFontSize(14);
   doc.setFontStyle("bold");
-  doc.text(10, 15, `Risk Assessment`);
+  doc.text(10, 15, "Risk Assessment");
   doc.setFontSize(12);
   doc.setFontStyle("normal");
-  doc.text(10, 30, `Purpose:`);
+  doc.text(10, 30, "Purpose:");
   let cols = [
     {
       title: "Risk ID",
@@ -75,14 +75,15 @@ function generateRisksPdf(data) {
       dataKey: "Risk_Assessment_Status",
     },
   ];
-  let table = data.map((i) => {
-    return {
-      ...i,
-      Risk_Description: i.Risk_Description ? i.Risk_Description + "\n" : "",
-    };
+  let table = data.map(function (i) {
+    let newItem = i;
+    newItem.Risk_Description = i.Risk_Description
+      ? i.Risk_Description + "\n"
+      : "";
+    return newItem;
   });
 
-  let createdCell = (data) => {
+  let createdCell = function (data) {
     if (data.section == "body") {
       data.cell.styles.fontSize = 8;
       data.cell.styles.lineWidth = 1;
@@ -93,13 +94,11 @@ function generateRisksPdf(data) {
       data.cell.styles.fillColor = [255, 255, 255];
     }
   };
-  let style = {
-    ...getRisksPdfStyles(30),
-    didParseCell: createdCell,
-  };
+  let style = getRisksPdfStyles(30);
+  style.didParseCell = createdCell;
   doc.autoTable(cols, table, style);
   // save file
-  doc.save(`Risks Assesments`);
+  doc.save("Risks Assesments.pdf");
 }
 
 function getRisksPdfStyles(startY) {
@@ -168,6 +167,17 @@ function getRisksListData() {
   var siteUrl = _spPageContextInfo
     ? _spPageContextInfo.webAbsoluteUrl
     : "https://dvagov.sharepoint.com/sites/VACOOMOBO/FROS/a123";
+  // return $.ajax({
+  //   beforeSend: function (xhrObj) {
+  //     xhrObj.setRequestHeader("Content-Type", "application/json");
+  //     xhrObj.setRequestHeader("Accept", "application/json");
+  //   },
+  //   type: "GET",
+  //   url: siteUrl + "/SiteAssets/va/data.txt",
+  //   dataType: "json",
+  // }).then(function (res) {
+  //   return res.value;
+  // });
   return $.ajax({
     beforeSend: function (xhrObj) {
       xhrObj.setRequestHeader("Content-Type", "application/json");
