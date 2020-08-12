@@ -173,7 +173,7 @@ function getRisksListData() {
   //     xhrObj.setRequestHeader("Accept", "application/json");
   //   },
   //   type: "GET",
-  //   url: siteUrl + "/SiteAssets/va/data.txt",
+  //   url: siteUrl + "/SiteAssets/app/data.txt",
   //   dataType: "json",
   // }).then(function (res) {
   //   return res.value;

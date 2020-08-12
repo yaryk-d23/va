@@ -1,6 +1,8 @@
 $(document).ready(function () {
   $("#export-risks").on("click", exportRisks);
   $("#export-materiality").on("click", exportMateriality);
+  $("#export-risk-factor").on("click", exportRiskFactor);
+  $("#export-findings-summary").on("click", exportFindingsSummary);
 });
 
 function exportRisks() {
@@ -11,8 +13,60 @@ function exportRisks() {
 
 function exportMateriality() {
   getMaterialityListData().then(function (res) {
-    generateMaterialityPdf(res);
+    res.forEach(function (item) {
+      var o = new Option(item.FY, item.FY);
+      $(o).html(item.FY);
+      $("#materiality-fy").append(o);
+    });
+    $("#dialog").dialog({
+      buttons: [
+        {
+          text: "OK",
+          click: function () {
+            $(this).dialog("close");
+            let fy = $("#materiality-fy").val();
+            let item = res.filter(function (i) {
+              return i.FY == fy;
+            })[0];
+            generateMaterialityPdf(item);
+          },
+        },
+      ],
+    });
   });
+}
+
+function exportRiskFactor() {
+  getRiskFactorListData().then(function (res) {
+    generateRiskFactorPdf(res);
+  });
+}
+
+function exportFindingsSummary() {
+  getFindingsSummaryListData().then(function (res) {
+    generateFindingsSummaryPdf(
+      groupBy(res, "Business_x0020_Process_x0020_Area")
+    );
+  });
+}
+
+function groupBy(xs, key) {
+  return xs.reduce(function (rv, x) {
+    (rv[x[key]] = rv[x[key]] || []).push(x);
+    return rv;
+  }, {});
+}
+
+function chunkArray(array, chunk) {
+  var i,
+    j,
+    temparray,
+    newArray = [];
+  for (i = 0, j = array.length; i < j; i += chunk) {
+    temparray = array.slice(i, i + chunk);
+    newArray.push(temparray);
+  }
+  return newArray;
 }
 
 // Materiality Base - Title
@@ -23,3 +77,7 @@ function exportMateriality() {
 // Management Materiality - Management_x0020_Materiality
 // Tolerable Misstatement - Tolerable_x0020_Misstatement
 // FY - FY
+
+// Risk Factor Name - Title
+// Risk Factor Description - Risk_x0020_Factor_x0020_Descript
+// Display - Display
