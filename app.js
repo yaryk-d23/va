@@ -44,9 +44,7 @@ function exportRiskFactor() {
 
 function exportFindingsSummary() {
   getFindingsSummaryListData().then(function (res) {
-    generateFindingsSummaryPdf(
-      groupBy(res, "Business_x0020_Process_x0020_Area")
-    );
+    generateFindingsSummaryPdf(groupBy(res, "Title"));
   });
 }
 

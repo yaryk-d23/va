@@ -200,26 +200,28 @@ function getMaterialityListData() {
   var siteUrl = _spPageContextInfo
     ? _spPageContextInfo.webAbsoluteUrl
     : "https://dvagov.sharepoint.com/sites/VACOOMOBO/FROS/a123";
-  return $.ajax({
-    beforeSend: function (xhrObj) {
-      xhrObj.setRequestHeader("Content-Type", "application/json");
-      xhrObj.setRequestHeader("Accept", "application/json");
-    },
-    type: "GET",
-    url: siteUrl + "/SiteAssets/app/data.txt",
-    dataType: "json",
-  }).then(function (res) {
-    return res.value;
-  });
   // return $.ajax({
   //   beforeSend: function (xhrObj) {
   //     xhrObj.setRequestHeader("Content-Type", "application/json");
   //     xhrObj.setRequestHeader("Accept", "application/json");
   //   },
   //   type: "GET",
-  //   url: siteUrl + "/_api/web/lists/getbytitle('Materiality List')/items",
+  //   url: siteUrl + "/SiteAssets/app/data.txt",
   //   dataType: "json",
   // }).then(function (res) {
   //   return res.value;
   // });
+  return $.ajax({
+    beforeSend: function (xhrObj) {
+      xhrObj.setRequestHeader("Content-Type", "application/json");
+      xhrObj.setRequestHeader("Accept", "application/json");
+    },
+    type: "GET",
+    url:
+      siteUrl +
+      "/_api/web/lists/getbytitle('Materiality List')/items?$orderby=FY",
+    dataType: "json",
+  }).then(function (res) {
+    return res.value;
+  });
 }

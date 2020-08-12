@@ -52,9 +52,9 @@ function generateFindingsSummaryPdf(data) {
     for (let i = 0; i < maxLength; i++) {
       table.push({
         col1: keys[0],
-        col2: data[keys[0]][i] ? data[keys[0]][i].Findings : "",
+        col2: data[keys[0]][i] ? data[keys[0]][i].FindingNo : "",
         col3: keys[1],
-        col4: data[keys[1]][i] ? data[keys[1]][i].Findings : "",
+        col4: data[keys[1]][i] ? data[keys[1]][i].FindingNo : "",
       });
     }
     createdCell = function (data) {
@@ -156,103 +156,29 @@ function getFindingsSummaryPdfStyles(startY) {
 }
 
 function getFindingsSummaryListData() {
-  let data = [
-    {
-      Business_x0020_Process_x0020_Area: "Budgetary Resources",
-      Findings: "CLA - NFR 19-03b",
-    },
-    {
-      Business_x0020_Process_x0020_Area: "Budgetary Resources",
-      Findings: "CLA - NFR 19-03b",
-    },
-    {
-      Business_x0020_Process_x0020_Area: "Budgetary Resources",
-      Findings: "CLA - NFR 19-03b",
-    },
-    {
-      Business_x0020_Process_x0020_Area: "Budgetary Resources",
-      Findings: "CLA - NFR 19-03b",
-    },
-    {
-      Business_x0020_Process_x0020_Area: "Education",
-      Findings: "CLA - NFR 19-03b",
-    },
-    {
-      Business_x0020_Process_x0020_Area: "Education",
-      Findings: "CLA - NFR 19-03b",
-    },
-    {
-      Business_x0020_Process_x0020_Area: "Education",
-      Findings: "CLA - NFR 19-03b",
-    },
-    {
-      Business_x0020_Process_x0020_Area: "Education",
-      Findings: "CLA - NFR 19-03b",
-    },
-    {
-      Business_x0020_Process_x0020_Area: "Education",
-      Findings: "CLA - NFR 19-03b",
-    },
-    {
-      Business_x0020_Process_x0020_Area: "Budgetary Resources1",
-      Findings: "CLA - NFR 19-03b",
-    },
-    {
-      Business_x0020_Process_x0020_Area: "Budgetary Resources1",
-      Findings: "CLA - NFR 19-03b",
-    },
-    {
-      Business_x0020_Process_x0020_Area: "Budgetary Resources1",
-      Findings: "CLA - NFR 19-03b",
-    },
-    {
-      Business_x0020_Process_x0020_Area: "Budgetary Resources1",
-      Findings: "CLA - NFR 19-03b",
-    },
-    {
-      Business_x0020_Process_x0020_Area: "Education1",
-      Findings: "CLA - NFR 19-03b",
-    },
-    {
-      Business_x0020_Process_x0020_Area: "Education1",
-      Findings: "CLA - NFR 19-03b",
-    },
-    {
-      Business_x0020_Process_x0020_Area: "Education1",
-      Findings: "CLA - NFR 19-03b",
-    },
-    {
-      Business_x0020_Process_x0020_Area: "Education1",
-      Findings: "CLA - NFR 19-03b",
-    },
-    {
-      Business_x0020_Process_x0020_Area: "Education1",
-      Findings: "CLA - NFR 19-03b",
-    },
-  ];
   var siteUrl = _spPageContextInfo
     ? _spPageContextInfo.webAbsoluteUrl
     : "https://dvagov.sharepoint.com/sites/VACOOMOBO/FROS/a123";
-  return $.ajax({
-    beforeSend: function (xhrObj) {
-      xhrObj.setRequestHeader("Content-Type", "application/json");
-      xhrObj.setRequestHeader("Accept", "application/json");
-    },
-    type: "GET",
-    url: siteUrl + "/SiteAssets/app/riskFactors.txt",
-    dataType: "json",
-  }).then(function (res) {
-    return data;
-  });
   // return $.ajax({
   //   beforeSend: function (xhrObj) {
   //     xhrObj.setRequestHeader("Content-Type", "application/json");
   //     xhrObj.setRequestHeader("Accept", "application/json");
   //   },
   //   type: "GET",
-  //   url: siteUrl + "/_api/web/lists/getbytitle('Risk Factor Criterias')/items",
+  //   url: siteUrl + "/SiteAssets/app/riskFactors.txt",
   //   dataType: "json",
   // }).then(function (res) {
-  //   return res.value;
+  //   return data;
   // });
+  return $.ajax({
+    beforeSend: function (xhrObj) {
+      xhrObj.setRequestHeader("Content-Type", "application/json");
+      xhrObj.setRequestHeader("Accept", "application/json");
+    },
+    type: "GET",
+    url: siteUrl + "/_api/web/lists/getbytitle('Finding Analysis')/items",
+    dataType: "json",
+  }).then(function (res) {
+    return res.value;
+  });
 }
