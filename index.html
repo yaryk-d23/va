@@ -1,5 +1,10 @@
 <div>
-  <button type="button" id="export-risks">Export to PDF</button>
+  <div>
+    <button type="button" id="export-risks">Export to PDF</button>
+  </div>
+  <div>
+    <button type="button" id="export-materiality">Export Materiality</button>
+  </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.3.5/bluebird.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"
@@ -22,6 +27,13 @@
     '<script language="javascript" type="text/javascript" src="' +
     siteUrl +
     "/pdf-services/export-risks.services.js?rnd=" +
+    Math.random() / 3 +
+    '"><\/script>'
+  );
+  document.write(
+    '<script language="javascript" type="text/javascript" src="' +
+    siteUrl +
+    "/pdf-services/export-materiality.js?rnd=" +
     Math.random() / 3 +
     '"><\/script>'
   );
