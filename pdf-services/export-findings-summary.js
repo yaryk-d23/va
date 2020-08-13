@@ -156,7 +156,7 @@ function getFindingsSummaryPdfStyles(startY) {
 }
 
 function getFindingsSummaryListData() {
-  var siteUrl = _spPageContextInfo
+  var siteUrl = window._spPageContextInfo
     ? _spPageContextInfo.webAbsoluteUrl
     : "https://dvagov.sharepoint.com/sites/VACOOMOBO/FROS/a123";
   // return $.ajax({
@@ -176,7 +176,7 @@ function getFindingsSummaryListData() {
       xhrObj.setRequestHeader("Accept", "application/json");
     },
     type: "GET",
-    url: siteUrl + "/_api/web/lists/getbytitle('Finding Analysis')/items",
+    url: siteUrl + "/_api/web/lists/getbytitle('Findings Analysis')/items",
     dataType: "json",
   }).then(function (res) {
     return res.value;
