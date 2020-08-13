@@ -45,19 +45,19 @@ function generateFindingsSummaryPdf(data) {
   let cnunkKeys = chunkArray(Object.keys(data), 2);
   cnunkKeys.forEach(function (keys) {
     table = [];
-    let maxLength =
+    let maxLength = keys.length == 2 ?
       data[keys[0]].length > data[keys[1]]
         ? data[keys[0]].length
-        : data[keys[1]].length;
+        : data[keys[1]].length : data[keys[0]].length;
     for (let i = 0; i < maxLength; i++) {
       table.push({
-        col1: data[keys[0]][i] && data[keys[0]][i].Business_x0020_Process_x0020_Are ? data[keys[0]][i].Business_x0020_Process_x0020_Are.Title : "",
-        col2: data[keys[0]][i] ? data[keys[0]][i].FindingNo : "",
-        col3: data[keys[1]][i] && data[keys[1]][i].Business_x0020_Process_x0020_Are ? data[keys[1]][i].Business_x0020_Process_x0020_Are.Title : "",
-        col4: data[keys[1]][i] ? data[keys[1]][i].FindingNo : "",
+        col1: data[keys[0]] && data[keys[0]][i] && data[keys[0]][i].Business_x0020_Process_x0020_Are ? data[keys[0]][i].Business_x0020_Process_x0020_Are.Title : "",
+        col2: data[keys[0]] && data[keys[0]][i] ? data[keys[0]][i].FindingNo : "",
+        col3: data[keys[1]] && data[keys[1]][i] && data[keys[1]][i].Business_x0020_Process_x0020_Are ? data[keys[1]][i].Business_x0020_Process_x0020_Are.Title : "",
+        col4: data[keys[1]] && data[keys[1]][i] ? data[keys[1]][i].FindingNo : "",
       });
     }
-    createdCell = function (data) {
+    let createdCell = function (data) {
       if (data.section == "body") {
         data.cell.styles.lineWidth = 1;
         data.cell.styles.lineColor = [0, 0, 0];
@@ -73,7 +73,7 @@ function generateFindingsSummaryPdf(data) {
         data.cell.rowSpan = maxLength;
       }
     };
-    style = getFindingsSummaryPdfStyles(
+    let style = getFindingsSummaryPdfStyles(
       doc.previousAutoTable ? doc.previousAutoTable.finalY - 5 : 110
     );
     style.didParseCell = createdCell;
@@ -162,7 +162,8 @@ function getFindingsSummaryListData() {
       xhrObj.setRequestHeader("Accept", "application/json");
     },
     type: "GET",
-    url: window.SITE_LOCATION_URL + "/_api/web/lists/getbytitle('Findings Analysis')/items?$select=*,Business_x0020_Process_x0020_Are/Title&$expand=Business_x0020_Process_x0020_Are",
+    url: window.SITE_LOCATION_URL + "/SiteAssets/app/data.txt",
+    // url: window.SITE_LOCATION_URL + "/_api/web/lists/getbytitle('Findings Analysis')/items?$select=*,Business_x0020_Process_x0020_Are/Title&$expand=Business_x0020_Process_x0020_Are",
     dataType: "json",
   }).then(function (res) {
     return res.value;

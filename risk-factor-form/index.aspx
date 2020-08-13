@@ -31,7 +31,7 @@
   for (var i = 0; i < styles.length; i++) {
     document.write(
       '<link rel="stylesheet" type="text/css" href="' +
-        siteUrl +
+        window.SITE_LOCATION_URL +
         styles[i] +
         "?rnd=" +
         Math.random() / 3 +
@@ -42,7 +42,7 @@
   for (var i = 0; i < scripts.length; i++) {
     document.write(
       '<script language="javascript" type="text/javascript" src="' +
-        siteUrl +
+        window.SITE_LOCATION_URL +
         scripts[i] +
         "?rnd=" +
         Math.random() / 3 +

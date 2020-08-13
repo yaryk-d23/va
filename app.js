@@ -3,6 +3,7 @@ $(document).ready(function () {
   $("#export-materiality").on("click", exportMateriality);
   $("#export-risk-factor").on("click", exportRiskFactor);
   $("#export-findings-summary").on("click", exportFindingsSummary);
+  $("#export-findings-analysis").on("click", exportFindingsAnalysis);
 });
 
 function exportRisks() {
@@ -51,7 +52,13 @@ function exportFindingsSummary() {
   });
 }
 
-function groupByBusinessProcessArea(xs, key) {
+function exportFindingsAnalysis() {
+  getFindingsAnalysisListData().then(function (res) {
+    generateFindingsAnalysisPdf(res);
+  });
+}
+
+function groupBy(xs, key) {
   return xs.reduce(function (rv, x) {
     (rv[x[key]] = rv[x[key]] || []).push(x);
     return rv;

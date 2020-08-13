@@ -1,7 +1,7 @@
 <html>
  <head></head>
  <body>
-<div>
+<div class="exports-container">
   <div class="action-button" id="export-risks">
     <div>Export to PDF</div>
   </div>
@@ -13,6 +13,9 @@
   </div>
   <div class="action-button" id="export-findings-summary">
     <div>Export Findings Summary</div>
+  </div>
+  <div class="action-button" id="export-findings-analysis">
+    <div>Export Findings Analysis</div>
   </div>
 </div>
 
@@ -42,13 +45,14 @@
     "/SiteAssets/app/pdf-services/export-materiality.js",
     "/SiteAssets/app/pdf-services/export-risk-factor.js",
     "/SiteAssets/app/pdf-services/export-findings-summary.js",
+    "/SiteAssets/app/pdf-services/export-findings-analysis.js",
+    "/SiteAssets/app/pdf-services/export-key-systems.js",
   ];
   var styles = ["/SiteAssets/app/style.css"];
-  var styles = ["/style.css"];
 
   for (var i = 0; i < styles.length; i++) {
     document.write(
-      '<link rel="stylesheet" type="text/css" href="' + siteUrl + styles[i] +
+      '<link rel="stylesheet" type="text/css" href="' + window.SITE_LOCATION_URL + styles[i] +
       "?rnd=" +
       Math.random() / 3 + '">'
     );
@@ -57,7 +61,7 @@
   for (var i = 0; i < scripts.length; i++) {
     document.write(
       '<script language="javascript" type="text/javascript" src="' +
-      siteUrl + scripts[i] +
+      window.SITE_LOCATION_URL + scripts[i] +
       "?rnd=" +
       Math.random() / 3 +
       '"><\/script>'
