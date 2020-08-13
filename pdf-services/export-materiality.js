@@ -71,29 +71,29 @@ function generateMaterialityPdf(data) {
       col2: "Calculation",
     },
     {
-      col1: "$XXXXX",
+      col1: "$" + parceToCurrency(data.Title),
       col2: "Total Program Costs (Gross Cost) - Net Adjustments",
     },
     {
       col1: "Planning Materiality",
     },
     {
-      col1: "$XXXXX",
-      col2: "Materiality Base * 3%",
+      col1: data.Planning_x0020_Materiality,
+      col2: data.Materiality_x0020_Percentage,
     },
     {
       col1: "Performance Materiality",
     },
     {
-      col1: "$XXXXX",
-      col2: "Planning Materiality * 33%",
+      col1: data.Performance_x0020_Materiality0,
+      col2: data.Performance_x0020_Materiality,
     },
     {
       col1: "Tolerable Misstatement",
     },
     {
-      col1: "$XXXXX",
-      col2: "Performance Materialtiy * Management Materiality Percentage",
+      col1: data.Tolerable_x0020_Misstatement,
+      col2: data.Management_x0020_Materiality,
     },
     {
       col1: "Comments",
@@ -141,6 +141,13 @@ function generateMaterialityPdf(data) {
   doc.autoTable(cols, table, style);
   // save file
   doc.save("Materiality.pdf");
+}
+
+function parceToCurrency(n) {
+  let val = (1*n).toFixed(2);
+  let parts = val.toString().split(".");
+  let num = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",") + (parts[1] ? "." + parts[1] : "");
+  return num;
 }
 
 function getMaterialityPdfStyles(startY) {
