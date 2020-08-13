@@ -29,15 +29,15 @@ function generateFindingsAnalysisPdf(listData) {
             dataKey: "col1",
         },
         {
-            title: "Findings",
+            title: "Finding ID Number",
             dataKey: "col2",
         },
         {
-            title: "Business Process Area",
+            title: "Finding/Report Title",
             dataKey: "col3",
         },
         {
-            title: "Findings",
+            title: "Origin of Findings",
             dataKey: "col4",
         },
     ];

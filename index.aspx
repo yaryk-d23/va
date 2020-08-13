@@ -3,7 +3,7 @@
  <body>
 <div class="exports-container">
   <div class="action-button" id="export-risks">
-    <div>Export to PDF</div>
+    <div>Export Risks Assesments</div>
   </div>
   <div class="action-button" id="export-materiality">
     <div>Export Materiality</div>
@@ -40,7 +40,7 @@
 
 
 <script>
-  window["SITE_LOCATION_URL"] = "https://dvagov.sharepoint.com/sites/VACOOMOBO/FROS/a123";
+  window["SITE_LOCATION_URL"] = "https://dvagov.sharepoint.com/sites/VACOOMOBO/FROS/a123"; //https://dvagov.sharepoint.com/sites/VACOOMOBO/FROS/a123
 
   var scripts = [
     "/SiteAssets/app/app.js",
