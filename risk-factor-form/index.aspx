@@ -1,4 +1,7 @@
-<div id="risk-factor-form">
+<html>
+ <head></head>
+ <body>
+ <div id="risk-factor-form">
   <div class="form-container">
     <div class="form-header">
       <h2>Risk Factor Criteria</h2>
@@ -49,3 +52,5 @@
     );
   }
 </script>
+<body>
+</html>

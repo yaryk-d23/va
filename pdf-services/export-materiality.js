@@ -143,7 +143,7 @@ function generateMaterialityPdf(materialityData, materialityApplicationData) {
   // add table below
   doc.setFontSize(12);
   doc.setFontStyle("bold");
-  doc.text(40, doc.previousAutoTable.finalY + 30, "Materiality Application");
+  doc.text(40, doc.previousAutoTable.finalY + 35, "Materiality Application");
 
   cols = [
     {
@@ -171,8 +171,8 @@ function generateMaterialityPdf(materialityData, materialityApplicationData) {
   materialityApplicationData.forEach(function (item) {
     table.push({
       column1: item.Title,
-      column2: item.Current_FY_Dollar_Value,
-      column3: item.Title,
+      column2: item.Current_FY_Dollar_Value ? ("$" + item.Current_FY_Dollar_Value) : '',
+      column3: "",
       column4: item.Materiality,
       column5: item.Comments,
     });
@@ -181,7 +181,7 @@ function generateMaterialityPdf(materialityData, materialityApplicationData) {
     if (data.section == "head") {
       data.cell.styles.lineWidth = 1;
       data.cell.styles.lineColor = [0, 0, 0];
-      data.cell.styles.halign = "left";
+      data.cell.styles.halign = "center";
       data.cell.styles.fillColor = [132, 151, 176];
       data.cell.styles.fontSize = 10;
       data.cell.styles.cellPadding = 5;
@@ -195,7 +195,7 @@ function generateMaterialityPdf(materialityData, materialityApplicationData) {
       data.cell.styles.cellPadding = 5;
     }
   };
-  style = getMaterialityPdfStyles(doc.previousAutoTable.finalY + 50);
+  style = getMaterialityPdfStyles(doc.previousAutoTable.finalY + 45);
   style.didParseCell = createdCell;
   doc.autoTable(cols, table, style);
   // save file
@@ -239,19 +239,19 @@ function getMaterialityPdfStyles(startY) {
         fontSize: 10,
         halign: "left",
         fontStyle: "normal",
-        cellWidth: 115,
+        cellWidth: 105,
       },
       column3: {
         fontSize: 10,
         halign: "left",
         fontStyle: "normal",
-        cellWidth: 115,
+        cellWidth: 100,
       },
       column4: {
         fontSize: 10,
         halign: "left",
         fontStyle: "normal",
-        cellWidth: 90,
+        cellWidth: 60,
       },
       column5: {
         fontSize: 10,
@@ -293,20 +293,7 @@ function getMaterialityPdfStyles(startY) {
   };
 }
 function getMaterialityListData() {
-  var siteUrl = _spPageContextInfo
-    ? _spPageContextInfo.webAbsoluteUrl
-    : "https://dvagov.sharepoint.com/sites/VACOOMOBO/FROS/a123";
-  // return $.ajax({
-  //   beforeSend: function (xhrObj) {
-  //     xhrObj.setRequestHeader("Content-Type", "application/json");
-  //     xhrObj.setRequestHeader("Accept", "application/json");
-  //   },
-  //   type: "GET",
-  //   url: siteUrl + "/SiteAssets/app/data.txt",
-  //   dataType: "json",
-  // }).then(function (res) {
-  //   return res.value;
-  // });
+  return new Promise(function (resolve, reject) { resolve(); });
   return $.ajax({
     beforeSend: function (xhrObj) {
       xhrObj.setRequestHeader("Content-Type", "application/json");
@@ -314,10 +301,36 @@ function getMaterialityListData() {
     },
     type: "GET",
     url:
-      siteUrl +
+      window.SITE_LOCATION_URL +
       "/_api/web/lists/getbytitle('Materiality List')/items?$orderby=FY",
     dataType: "json",
   }).then(function (res) {
     return res.value;
   });
+}
+function getMaterialityAppListData(fy) {
+  return $.ajax({
+    beforeSend: function (xhrObj) {
+      xhrObj.setRequestHeader("Content-Type", "application/json");
+      xhrObj.setRequestHeader("Accept", "application/json");
+    },
+    type: "GET",
+    url: window.SITE_LOCATION_URL + "/SiteAssets/app/data.txt",
+    dataType: "json",
+  }).then(function (res) {
+    return res.value;
+  });
+  // return $.ajax({
+  //   beforeSend: function (xhrObj) {
+  //     xhrObj.setRequestHeader("Content-Type", "application/json");
+  //     xhrObj.setRequestHeader("Accept", "application/json");
+  //   },
+  //   type: "GET",
+  //   url:
+  //     window.SITE_LOCATION_URL +
+  //     "/_api/web/lists/getbytitle('AFR Line Items')/items?$filter=FY eq '" + fy + "'",
+  //   dataType: "json",
+  // }).then(function (res) {
+  //   return res.value;
+  // });
 }

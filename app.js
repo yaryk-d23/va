@@ -29,7 +29,9 @@ function exportMateriality() {
             let item = res.filter(function (i) {
               return i.FY == fy;
             })[0];
-            generateMaterialityPdf(item);
+            getMaterialityAppListData(fy).then(function (res) {
+              generateMaterialityPdf(item, res);
+            });
           },
         },
       ],
@@ -45,11 +47,11 @@ function exportRiskFactor() {
 
 function exportFindingsSummary() {
   getFindingsSummaryListData().then(function (res) {
-    generateFindingsSummaryPdf(groupBy(res, "Title"));
+    generateFindingsSummaryPdf(groupBy(res, "Business_x0020_Process_x0020_AreId"));
   });
 }
 
-function groupBy(xs, key) {
+function groupByBusinessProcessArea(xs, key) {
   return xs.reduce(function (rv, x) {
     (rv[x[key]] = rv[x[key]] || []).push(x);
     return rv;

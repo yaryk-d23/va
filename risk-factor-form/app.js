@@ -20,7 +20,9 @@
                 xhrObj.setRequestHeader("Accept", "application/json");
             },
             type: "GET",
-            url: "https://netorgft4174095.sharepoint.com/stg/SiteAssets/app/riskFactors.txt",
+            url:
+                window.SITE_LOCATION_URL +
+                "/_api/web/lists/getbytitle('Risk Factor Criterias')/items?$filter=Display eq 1",
             dataType: "json",
         }).then(function (res) {
             return res.value;

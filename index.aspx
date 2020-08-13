@@ -1,3 +1,6 @@
+<html>
+ <head></head>
+ <body>
 <div>
   <div class="action-button" id="export-risks">
     <div>Export to PDF</div>
@@ -31,15 +34,16 @@
 
 
 <script>
-  var siteUrl ="https://dvagov.sharepoint.com/sites/VACOOMOBO/FROS/a123/SiteAssets/app";
+  window["SITE_LOCATION_URL"] = "https://netorgft4174095.sharepoint.com/stg";
 
   var scripts = [
-    "/app.js",
-    "/pdf-services/export-risks.services.js",
-    "/pdf-services/export-materiality.js",
-    "/pdf-services/export-risk-factor.js",
-    "/pdf-services/export-findings-summary.js"
+    "/SiteAssets/app/app.js",
+    "/SiteAssets/app/pdf-services/export-risks.services.js",
+    "/SiteAssets/app/pdf-services/export-materiality.js",
+    "/SiteAssets/app/pdf-services/export-risk-factor.js",
+    "/SiteAssets/app/pdf-services/export-findings-summary.js",
   ];
+  var styles = ["/SiteAssets/app/style.css"];
   var styles = ["/style.css"];
 
   for (var i = 0; i < styles.length; i++) {
@@ -60,13 +64,6 @@
     );
   }
 
-</script><html><head><META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8"><meta name="Robots" content="NOINDEX " /></head><body></body>
-                <script type="text/javascript">
-                 var gearPage = document.getElementById('GearPage');
-                 if(null != gearPage)
-                 {
-                     gearPage.parentNode.removeChild(gearPage);
-                     document.title = "Error";
-                 }
-                 </script>
-                 </html>
+</script>
+<body>
+</html>

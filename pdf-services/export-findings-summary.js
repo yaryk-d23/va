@@ -51,9 +51,9 @@ function generateFindingsSummaryPdf(data) {
         : data[keys[1]].length;
     for (let i = 0; i < maxLength; i++) {
       table.push({
-        col1: keys[0],
+        col1: data[keys[0]][i] && data[keys[0]][i].Business_x0020_Process_x0020_Are ? data[keys[0]][i].Business_x0020_Process_x0020_Are.Title : "",
         col2: data[keys[0]][i] ? data[keys[0]][i].FindingNo : "",
-        col3: keys[1],
+        col3: data[keys[1]][i] && data[keys[1]][i].Business_x0020_Process_x0020_Are ? data[keys[1]][i].Business_x0020_Process_x0020_Are.Title : "",
         col4: data[keys[1]][i] ? data[keys[1]][i].FindingNo : "",
       });
     }
@@ -156,27 +156,13 @@ function getFindingsSummaryPdfStyles(startY) {
 }
 
 function getFindingsSummaryListData() {
-  var siteUrl = window._spPageContextInfo
-    ? _spPageContextInfo.webAbsoluteUrl
-    : "https://dvagov.sharepoint.com/sites/VACOOMOBO/FROS/a123";
-  // return $.ajax({
-  //   beforeSend: function (xhrObj) {
-  //     xhrObj.setRequestHeader("Content-Type", "application/json");
-  //     xhrObj.setRequestHeader("Accept", "application/json");
-  //   },
-  //   type: "GET",
-  //   url: siteUrl + "/SiteAssets/app/riskFactors.txt",
-  //   dataType: "json",
-  // }).then(function (res) {
-  //   return data;
-  // });
   return $.ajax({
     beforeSend: function (xhrObj) {
       xhrObj.setRequestHeader("Content-Type", "application/json");
       xhrObj.setRequestHeader("Accept", "application/json");
     },
     type: "GET",
-    url: siteUrl + "/_api/web/lists/getbytitle('Findings Analysis')/items",
+    url: window.SITE_LOCATION_URL + "/_api/web/lists/getbytitle('Findings Analysis')/items?$select=*,Business_x0020_Process_x0020_Are/Title&$expand=Business_x0020_Process_x0020_Are",
     dataType: "json",
   }).then(function (res) {
     return res.value;

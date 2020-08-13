@@ -164,27 +164,13 @@ function getRisksPdfStyles(startY) {
   };
 }
 function getRisksListData() {
-  var siteUrl = _spPageContextInfo
-    ? _spPageContextInfo.webAbsoluteUrl
-    : "https://dvagov.sharepoint.com/sites/VACOOMOBO/FROS/a123";
-  // return $.ajax({
-  //   beforeSend: function (xhrObj) {
-  //     xhrObj.setRequestHeader("Content-Type", "application/json");
-  //     xhrObj.setRequestHeader("Accept", "application/json");
-  //   },
-  //   type: "GET",
-  //   url: siteUrl + "/SiteAssets/app/data.txt",
-  //   dataType: "json",
-  // }).then(function (res) {
-  //   return res.value;
-  // });
   return $.ajax({
     beforeSend: function (xhrObj) {
       xhrObj.setRequestHeader("Content-Type", "application/json");
       xhrObj.setRequestHeader("Accept", "application/json");
     },
     type: "GET",
-    url: siteUrl + "/_api/web/lists/getbytitle('Risk Assessment')/items",
+    url: window.SITE_LOCATION_URL + "/_api/web/lists/getbytitle('Risk Assessment')/items",
     dataType: "json",
   }).then(function (res) {
     return res.value;

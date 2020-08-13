@@ -112,20 +112,6 @@ function getRiskFactorPdfStyles(startY) {
   };
 }
 function getRiskFactorListData() {
-  var siteUrl = _spPageContextInfo
-    ? _spPageContextInfo.webAbsoluteUrl
-    : "https://dvagov.sharepoint.com/sites/VACOOMOBO/FROS/a123";
-  // return $.ajax({
-  //   beforeSend: function (xhrObj) {
-  //     xhrObj.setRequestHeader("Content-Type", "application/json");
-  //     xhrObj.setRequestHeader("Accept", "application/json");
-  //   },
-  //   type: "GET",
-  //   url: siteUrl + "/SiteAssets/app/riskFactors.txt",
-  //   dataType: "json",
-  // }).then(function (res) {
-  //   return res.value;
-  // });
   return $.ajax({
     beforeSend: function (xhrObj) {
       xhrObj.setRequestHeader("Content-Type", "application/json");
@@ -133,7 +119,7 @@ function getRiskFactorListData() {
     },
     type: "GET",
     url:
-      siteUrl +
+      window.SITE_LOCATION_URL +
       "/_api/web/lists/getbytitle('Risk Factor Criterias')/items?$filter=Display eq 1",
     dataType: "json",
   }).then(function (res) {
