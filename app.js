@@ -13,6 +13,7 @@ function exportRisks() {
 
 function exportMateriality() {
   getMaterialityListData().then(function (res) {
+    $("#materiality-fy").html('');
     res.forEach(function (item) {
       var o = new Option(item.FY, item.FY);
       $(o).html(item.FY);

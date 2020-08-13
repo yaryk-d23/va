@@ -1,4 +1,4 @@
-function generateMaterialityPdf(data) {
+function generateMaterialityPdf(materialityData, materialityApplicationData) {
   var doc = new jsPDF({
     orientation: "p",
     unit: "pt",
@@ -71,29 +71,29 @@ function generateMaterialityPdf(data) {
       col2: "Calculation",
     },
     {
-      col1: "$" + parceToCurrency(data.Title),
+      col1: "$" + parceToCurrency(materialityData.Title),
       col2: "Total Program Costs (Gross Cost) - Net Adjustments",
     },
     {
       col1: "Planning Materiality",
     },
     {
-      col1: data.Planning_x0020_Materiality,
-      col2: data.Materiality_x0020_Percentage,
+      col1: materialityData.Planning_x0020_Materiality,
+      col2: materialityData.Materiality_x0020_Percentage,
     },
     {
       col1: "Performance Materiality",
     },
     {
-      col1: data.Performance_x0020_Materiality0,
-      col2: data.Performance_x0020_Materiality,
+      col1: materialityData.Performance_x0020_Materiality0,
+      col2: materialityData.Performance_x0020_Materiality,
     },
     {
       col1: "Tolerable Misstatement",
     },
     {
-      col1: data.Tolerable_x0020_Misstatement,
-      col2: data.Management_x0020_Materiality,
+      col1: materialityData.Tolerable_x0020_Misstatement,
+      col2: materialityData.Management_x0020_Materiality,
     },
     {
       col1: "Comments",
@@ -139,12 +139,71 @@ function generateMaterialityPdf(data) {
   style = getMaterialityPdfStyles(doc.previousAutoTable.finalY - 5);
   style.didParseCell = createdCell;
   doc.autoTable(cols, table, style);
+
+  // add table below
+  doc.setFontSize(12);
+  doc.setFontStyle("bold");
+  doc.text(40, doc.previousAutoTable.finalY + 30, "Materiality Application");
+
+  cols = [
+    {
+      title: "Financial Statement Line Item",
+      dataKey: "column1",
+    },
+    {
+      title: "CY Dollar Amount",
+      dataKey: "column2",
+    },
+    {
+      title: "Threshold",
+      dataKey: "column3",
+    },
+    {
+      title: "Material",
+      dataKey: "column4",
+    },
+    {
+      title: "Comments",
+      dataKey: "column5",
+    },
+  ];
+  table = [];
+  materialityApplicationData.forEach(function (item) {
+    table.push({
+      column1: item.Title,
+      column2: item.Current_FY_Dollar_Value,
+      column3: item.Title,
+      column4: item.Materiality,
+      column5: item.Comments,
+    });
+  });
+  createdCell = function (data) {
+    if (data.section == "head") {
+      data.cell.styles.lineWidth = 1;
+      data.cell.styles.lineColor = [0, 0, 0];
+      data.cell.styles.halign = "left";
+      data.cell.styles.fillColor = [132, 151, 176];
+      data.cell.styles.fontSize = 10;
+      data.cell.styles.cellPadding = 5;
+    }
+    if (data.section == "body") {
+      data.cell.styles.lineWidth = 1;
+      data.cell.styles.lineColor = [0, 0, 0];
+      data.cell.styles.halign = "left";
+      data.cell.styles.fillColor = [255, 255, 255];
+      data.cell.styles.fontSize = 10;
+      data.cell.styles.cellPadding = 5;
+    }
+  };
+  style = getMaterialityPdfStyles(doc.previousAutoTable.finalY + 50);
+  style.didParseCell = createdCell;
+  doc.autoTable(cols, table, style);
   // save file
   doc.save("Materiality.pdf");
 }
 
 function parceToCurrency(n) {
-  let val = (1*n).toFixed(2);
+  let val = (1 * n).toFixed(2);
   let parts = val.toString().split(".");
   let num = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",") + (parts[1] ? "." + parts[1] : "");
   return num;
@@ -169,6 +228,36 @@ function getMaterialityPdfStyles(startY) {
         halign: "left",
         fontStyle: "normal",
         fontSize: 12,
+      },
+      column1: {
+        fontSize: 10,
+        halign: "left",
+        fontStyle: "normal",
+        cellWidth: 130,
+      },
+      column2: {
+        fontSize: 10,
+        halign: "left",
+        fontStyle: "normal",
+        cellWidth: 115,
+      },
+      column3: {
+        fontSize: 10,
+        halign: "left",
+        fontStyle: "normal",
+        cellWidth: 115,
+      },
+      column4: {
+        fontSize: 10,
+        halign: "left",
+        fontStyle: "normal",
+        cellWidth: 90,
+      },
+      column5: {
+        fontSize: 10,
+        halign: "left",
+        fontStyle: "normal",
+        cellWidth: 120,
       },
     },
     margin: {
