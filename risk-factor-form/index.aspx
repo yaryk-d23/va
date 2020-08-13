@@ -23,12 +23,10 @@
   integrity="sha512-jGsMH83oKe9asCpkOVkBnUrDDTp8wl+adkB2D+//JtlxO4SrLoJdhbOysIFQJloQFD+C4Fl1rMsQZF76JjV0eQ=="
   crossorigin="anonymous"></script>
 <script>
-  var siteUrl = window._spPageContextInfo
-    ? _spPageContextInfo.webAbsoluteUrl + "/SiteAssets/app"
-    : "https://netorgft4174095.sharepoint.com/stg/SiteAssets/app/risk-factor-form";
+  window["SITE_LOCATION_URL"] = "https://netorgft4174095.sharepoint.com/stg";
 
-  var scripts = ["/app.js"];
-  var styles = ["/style.css"];
+  var scripts = ["/SiteAssets/app/risk-factor-form/app.js"];
+  var styles = ["/SiteAssets/app/risk-factor-form/style.css"];
 
   for (var i = 0; i < styles.length; i++) {
     document.write(
