@@ -1,0 +1,25 @@
+#risk-factor-form .form-container {
+  font-family: "Segoe UI", "Segoe UI Web (West European)", "Segoe UI",
+    -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+  width: 100%;
+  max-width: 800px;
+  padding: 1em 0;
+  margin: 1em;
+  border: 1px solid #818181;
+}
+#risk-factor-form .form-header {
+  padding: 1em;
+}
+#risk-factor-form .form-header h2 {
+  text-align: center;
+}
+#risk-factor-form .form-body {
+  margin-bottom: 1em;
+}
+#risk-factor-form .criteria-title {
+  padding: 5px 1em;
+  background-color: #8497b0;
+}
+#risk-factor-form .criteria-description {
+  padding: 0 1em;
+}
