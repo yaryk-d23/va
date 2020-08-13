@@ -162,8 +162,8 @@ function getFindingsSummaryListData() {
       xhrObj.setRequestHeader("Accept", "application/json");
     },
     type: "GET",
-    url: window.SITE_LOCATION_URL + "/SiteAssets/app/data.txt",
-    // url: window.SITE_LOCATION_URL + "/_api/web/lists/getbytitle('Findings Analysis')/items?$select=*,Business_x0020_Process_x0020_Are/Title&$expand=Business_x0020_Process_x0020_Are",
+    // url: window.SITE_LOCATION_URL + "/SiteAssets/app/data.txt",
+    url: window.SITE_LOCATION_URL + "/_api/web/lists/getbytitle('Findings Analysis')/items?$select=*,Business_x0020_Process_x0020_Are/Title&$expand=Business_x0020_Process_x0020_Are",
     dataType: "json",
   }).then(function (res) {
     return res.value;

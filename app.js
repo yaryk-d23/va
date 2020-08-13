@@ -4,6 +4,7 @@ $(document).ready(function () {
   $("#export-risk-factor").on("click", exportRiskFactor);
   $("#export-findings-summary").on("click", exportFindingsSummary);
   $("#export-findings-analysis").on("click", exportFindingsAnalysis);
+  $("#export-key-systems").on("click", exportKeySystems);
 });
 
 function exportRisks() {
@@ -21,6 +22,11 @@ function exportMateriality() {
       $("#materiality-fy").append(o);
     });
     $("#dialog").dialog({
+      position: {
+        my: "center top",
+        at: "center top",
+        of: "body"
+      },
       buttons: [
         {
           text: "OK",
@@ -55,6 +61,12 @@ function exportFindingsSummary() {
 function exportFindingsAnalysis() {
   getFindingsAnalysisListData().then(function (res) {
     generateFindingsAnalysisPdf(res);
+  });
+}
+
+function exportKeySystems() {
+  getKeySystemsListData().then(function (res) {
+    generateKeySystemsPdf(res);
   });
 }
 

@@ -308,17 +308,6 @@ function getMaterialityListData() {
   });
 }
 function getMaterialityAppListData(fy) {
-  // return $.ajax({
-  //   beforeSend: function (xhrObj) {
-  //     xhrObj.setRequestHeader("Content-Type", "application/json");
-  //     xhrObj.setRequestHeader("Accept", "application/json");
-  //   },
-  //   type: "GET",
-  //   url: window.SITE_LOCATION_URL + "/SiteAssets/app/data.txt",
-  //   dataType: "json",
-  // }).then(function (res) {
-  //   return res.value;
-  // });
   return $.ajax({
     beforeSend: function (xhrObj) {
       xhrObj.setRequestHeader("Content-Type", "application/json");
