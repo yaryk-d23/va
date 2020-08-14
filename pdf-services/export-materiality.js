@@ -172,7 +172,7 @@ function generateMaterialityPdf(materialityData, materialityApplicationData) {
     table.push({
       column1: item.Title,
       column2: item.Current_FY_Dollar_Value ? ("$" + item.Current_FY_Dollar_Value) : '',
-      column3: "",
+      column3: materialityData.Planning_x0020_Materiality,
       column4: item.Materiality,
       column5: item.Comments,
     });
