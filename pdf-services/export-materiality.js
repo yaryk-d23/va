@@ -21,41 +21,8 @@ function generateMaterialityPdf(materialityData, materialityApplicationData) {
   doc.text(20, 80, "Appendix A Risk Assessment.");
 
   // add content
-  let cols = [
-    {
-      title: "Materiality Calculations",
-      dataKey: "fullColl",
-    },
-  ];
-  let table = [
-    {
-      fullColl:
-        "Selected Materiality Base: Statement of Net Costs - Total Program Costs (Gross Cost)",
-    },
-  ];
-  let createdCell = function (data) {
-    if (data.section == "head" && data.column.dataKey == "fullColl") {
-      data.cell.styles.lineWidth = 1;
-      data.cell.styles.lineColor = [0, 0, 0];
-      data.cell.styles.halign = "left";
-      data.cell.styles.fillColor = [132, 151, 176];
-      data.cell.styles.fontSize = 12;
-      data.cell.styles.cellPadding = 5;
-    }
-    if (data.section == "body" && data.column.dataKey == "fullColl") {
-      data.cell.styles.lineWidth = 1;
-      data.cell.styles.lineColor = [0, 0, 0];
-      data.cell.styles.halign = "left";
-      data.cell.styles.fillColor = [255, 255, 255];
-      data.cell.styles.fontSize = 10;
-      data.cell.styles.cellPadding = 5;
-    }
-  };
-  let style = getMaterialityPdfStyles(95);
-  style.didParseCell = createdCell;
-  doc.autoTable(cols, table, style);
 
-  cols = [
+  let cols = [
     {
       title: "",
       dataKey: "col1",
@@ -65,7 +32,7 @@ function generateMaterialityPdf(materialityData, materialityApplicationData) {
       dataKey: "col2",
     },
   ];
-  table = [
+  let table = [
     {
       col1: "Reporting Materiality",
       col2: "Calculation",
@@ -103,7 +70,7 @@ function generateMaterialityPdf(materialityData, materialityApplicationData) {
         "Materiality Base was calculated as Total Program Costs (Gross Cost) from the Statement of Net Costs less net adjustments. Net adjustments are comprised of intergovernmental costs, Actuarial costs (estimates), and earned revenue.",
     },
   ];
-  createdCell = function (data) {
+  let createdCell = function (data) {
     // if (data.section == "head") {
     //   data.cell.styles.lineWidth = 1;
     //   data.cell.styles.lineColor = [0, 0, 0];
@@ -136,7 +103,7 @@ function generateMaterialityPdf(materialityData, materialityApplicationData) {
       data.cell.colSpan = 2;
     }
   };
-  style = getMaterialityPdfStyles(doc.previousAutoTable.finalY - 5);
+  let style = getMaterialityPdfStyles(100);
   style.didParseCell = createdCell;
   doc.autoTable(cols, table, style);
 
