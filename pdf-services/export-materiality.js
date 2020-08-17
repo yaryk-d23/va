@@ -34,7 +34,7 @@ function generateMaterialityPdf(materialityData, materialityApplicationData) {
   ];
   let table = [
     {
-      col1: "Reporting Materiality",
+      col1: "Materiality Base",
       col2: "Calculation",
     },
     {
