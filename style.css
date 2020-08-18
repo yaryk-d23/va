@@ -6,19 +6,20 @@
   display: inline-block;
   vertical-align: text-bottom;
   text-align: center;
-  padding: 2em;
-  margin: 1em;
-  width: 100px;
+  padding: 1%;
+  margin: 0 0% 3% 0;
+  width: 30%;
+  max-width: 100px;
   height: 120px;
   box-shadow: 1px 1px 2px 1px;
-  background-image: url("/sites/VACOOMOBO/FROS/a123/SiteAssets/app/pdf.svg");
+  background-image: url("https://dvagov.sharepoint.com/sites/VACOOMOBO/FROS/a123/SiteAssets/app/pdf.svg");
   background-position: center 5px;
-  background-size: 60%;
+  background-size: 45%;
   background-repeat: no-repeat;
   cursor: pointer;
 }
 .action-button > div {
-  margin-top: 75px;
+  margin-top: 50px;
   font-weight: bold;
 }
 #dialog > div {
@@ -27,4 +28,16 @@
 }
 #dialog > div > select {
   margin-left: 1em;
+}
+
+@media screen and (max-width: 332px) {
+  .action-button {
+    width: 45%;
+    max-width: 130px;
+    height: 130px;
+    margin: 0 2% 3% 0;
+  }
+  .action-button > div {
+    margin-top: 65px;
+  }
 }
