@@ -3,23 +3,35 @@
  <body>
 <div class="exports-container">
   <div class="action-button" id="export-risks">
-    <div>Export Risks Assesments</div>
+    <div class="button-content">
+      <div>Export Risks Assesments</div>
+    </div>
   </div>
   <div class="action-button" id="export-materiality">
-    <div>Export Materiality</div>
+    <div class="button-content">
+      <div>Export Materiality</div>
+    </div>
   </div>
   <div class="action-button" id="export-risk-factor">
-    <div>Export Risk Factor</div>
-  </div>
+    <div class="button-content">
+      <div>Export Risk Factor</div>
+      </div>
+    </div>
   <div class="action-button" id="export-findings-summary">
-    <div>Export Findings Summary</div>
+    <div class="button-content">
+      <div>Export Findings Summary</div>
+    </div>
   </div>
   <div class="action-button" id="export-findings-analysis">
-    <div>Export Findings Analysis</div>
+    <div class="button-content">
+      <div>Export Findings Analysis</div>
+    </div>
   </div>
   <div class="action-button" id="export-key-systems">
-    <div>Export Key Systems</div>
-  </div>
+    <div class="button-content">
+      <div>Export Key Systems</div>
+    </div>
+    </div>
 </div>
 
 
