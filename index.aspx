@@ -4,7 +4,7 @@
 <div class="exports-container">
   <div class="action-button" id="export-risks">
     <div class="button-content">
-      <div>Export Risks Assesments</div>
+      <div>Export Risk Assessment</div>
     </div>
   </div>
   <div class="action-button" id="export-materiality">
