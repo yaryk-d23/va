@@ -1,1 +1,4 @@
 Text((Left(DataCardValue19.Selected.Value,1)+Left(DataCardValue20.Selected.Value,1)+Left(DataCardValue21.Selected.Value,1)+Left(DataCardValue22.Selected.Value,1))/4,"[$-en-US]0.00")
+
+
+[@BCM].BCMApprover)
