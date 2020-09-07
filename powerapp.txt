@@ -2,3 +2,14 @@ Text((Left(DataCardValue19.Selected.Value,1)+Left(DataCardValue20.Selected.Value
 
 
 [@BCM].BCMApprover)
+
+Subject:	BCM Section Update Submitted					
+						
+Hello,						
+						
+A BCM section update has been submitted for your review. Please review the updated section and attached documents at the location provided below.						
+						
+						
+BCM Title		(link to sharepoint)				
+BCM Section Title						
+						
