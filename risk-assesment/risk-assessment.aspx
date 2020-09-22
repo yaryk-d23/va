@@ -17,10 +17,10 @@
   window["SITE_LOCATION_URL"] = "https://dvagov.sharepoint.com/sites/VACOOMOBO/FROS/a123"; //https://dvagov.sharepoint.com/sites/VACOOMOBO/FROS/a123
 
   var scripts = [
-    "/SiteAssets/app/app.js",
-    "/SiteAssets/app/pdf-services/export-risks.services.js",
+    "/SiteAssets/app/risk-assesment/app.js",
+    "/SiteAssets/app/risk-assesment/export-risks.services.js",
   ];
-  var styles = ["/SiteAssets/app/style.css"];
+  var styles = ["/SiteAssets/app/risk-assesment/style.css"];
 
   for (var i = 0; i < styles.length; i++) {
     document.write(
