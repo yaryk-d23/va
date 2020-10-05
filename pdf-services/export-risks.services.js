@@ -98,7 +98,8 @@ function generateRisksPdf(data) {
   style.didParseCell = createdCell;
   doc.autoTable(cols, table, style);
   // save file
-  doc.save("Risks Assesments.pdf");
+  return doc;
+  //doc.save("Risks Assesments.pdf");
 }
 
 function getRisksPdfStyles(startY) {

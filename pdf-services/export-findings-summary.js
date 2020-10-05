@@ -81,7 +81,8 @@ function generateFindingsSummaryPdf(data) {
   });
 
   // save file
-  doc.save("Findings Summary.pdf");
+  // doc.save("Findings Summary.pdf");
+  return doc;
 }
 
 function getFindingsSummaryPdfStyles(startY) {

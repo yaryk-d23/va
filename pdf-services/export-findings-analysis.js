@@ -75,7 +75,8 @@ function generateFindingsAnalysisPdf(listData) {
     style.didParseCell = createdCell;
     doc.autoTable(cols, table, style);
     // save file
-    doc.save("Findings Analysis.pdf");
+    // doc.save("Findings Analysis.pdf");
+    return doc;
 }
 function getFindingsAnalysisPdfStyles(startY) {
     return {

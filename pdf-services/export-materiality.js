@@ -166,7 +166,8 @@ function generateMaterialityPdf(materialityData, materialityApplicationData) {
   style.didParseCell = createdCell;
   doc.autoTable(cols, table, style);
   // save file
-  doc.save("Materiality.pdf");
+  //doc.save("Materiality.pdf");
+  return doc;
 }
 
 function parceToCurrency(n) {

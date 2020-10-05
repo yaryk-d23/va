@@ -9,7 +9,7 @@ function generateKeySystemsPdf(listData) {
     // add pdf header
     doc.setFontSize(16);
     doc.setFontStyle("bold");
-    doc.text(135, 45, "Business Process Area Finding Detail");
+    doc.text(135, 45, "Key Systems");
     doc.setFontSize(10);
     doc.text(40, 65, "Purpose:");
     doc.setFontStyle("normal");
@@ -65,7 +65,8 @@ function generateKeySystemsPdf(listData) {
     style.didParseCell = createdCell;
     doc.autoTable(cols, table, style);
     // save file
-    doc.save("Key Systems.pdf");
+    // doc.save("Key Systems.pdf");
+    return doc;
 }
 function getKeySystemsPdfStyles(startY) {
     return {

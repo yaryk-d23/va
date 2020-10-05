@@ -56,7 +56,8 @@ function generateRiskFactorPdf(data) {
   doc.autoTable(cols, table, style);
 
   // save file
-  doc.save("Risk Factor Criteria.pdf");
+  // doc.save("Risk Factor Criteria.pdf");
+  return doc;
 }
 function getRiskFactorPdfStyles(startY) {
   return {

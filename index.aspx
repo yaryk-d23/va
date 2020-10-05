@@ -2,16 +2,6 @@
  <head></head>
  <body>
 <div class="exports-container">
-  <div class="action-button" id="export-risks">
-    <div class="button-content">
-      <div>Export Risk Assessment</div>
-    </div>
-  </div>
-  <div class="action-button" id="export-materiality">
-    <div class="button-content">
-      <div>Export Materiality</div>
-    </div>
-  </div>
   <div class="action-button" id="export-risk-factor">
     <div class="button-content">
       <div>Export Risk Factor</div>
@@ -27,11 +17,26 @@
       <div>Export Findings Analysis</div>
     </div>
   </div>
+  <div class="action-button" id="export-materiality">
+    <div class="button-content">
+      <div>Export Materiality</div>
+    </div>
+  </div>
   <div class="action-button" id="export-key-systems">
     <div class="button-content">
       <div>Export Key Systems</div>
     </div>
+  </div>
+  <div class="action-button" id="export-risks">
+    <div class="button-content">
+      <div>Export Risk Assessment</div>
     </div>
+  </div>
+  <div class="action-button" id="export-all">
+    <div class="button-content">
+      <div>Export Risk Assessment Package</div>
+    </div>
+  </div>
 </div>
 
 
@@ -47,6 +52,7 @@
   integrity="sha512-jGsMH83oKe9asCpkOVkBnUrDDTp8wl+adkB2D+//JtlxO4SrLoJdhbOysIFQJloQFD+C4Fl1rMsQZF76JjV0eQ=="
   crossorigin="anonymous"></script>
 <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.11.1/pdf-lib.min.js" integrity="sha512-cw4zgXxUbnpVN9FgAAAPAbnqq4XX4FvtWufL9JuCAyIGXpRuf6ySlTvsVEeu66zPinaIwxVxoQ2C7wtmKpYkUw==" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.6/jspdf.plugin.autotable.min.js"></script>
 

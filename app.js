@@ -9,7 +9,80 @@ $(document).ready(function () {
   $("#export-findings-summary").on("click", exportFindingsSummary);
   $("#export-findings-analysis").on("click", exportFindingsAnalysis);
   $("#export-key-systems").on("click", exportKeySystems);
+  $("#export-all").on("click", exportAll);
 });
+
+
+function exportAll() {
+  var reqs = [
+    getRiskFactorListData(),
+    getFindingsSummaryListData(),
+    getFindingsAnalysisListData(),
+    getMaterialityListData(),
+    getKeySystemsListData(),
+    getRisksListData(),
+  ];
+  Promise.all(reqs).then(function (res) {
+    $("#materiality-fy").html('');
+    res[3].forEach(function (item) {
+      var o = new Option(item.FY, item.FY);
+      $(o).html(item.FY);
+      $("#materiality-fy").append(o);
+    });
+    $("#dialog").dialog({
+      position: {
+        my: "center top",
+        at: "center top",
+        of: "body"
+      },
+      buttons: [
+        {
+          text: "OK",
+          click: function () {
+            $(this).dialog("close");
+            let fy = $("#materiality-fy").val();
+            let item = res[3].filter(function (i) {
+              return i.FY == fy;
+            })[0];
+            getMaterialityAppListData(fy).then(function (materialityRes) {
+
+              //......//
+              var arrayBuffer = [];
+              var doc = generateRiskFactorPdf(res[0]);
+              arrayBuffer.push(doc.output("arraybuffer"));
+              doc = generateFindingsSummaryPdf(groupBy(res[1], "Business_x0020_Process_x0020_AreId"));
+              arrayBuffer.push(doc.output("arraybuffer"));
+              doc = generateFindingsAnalysisPdf(res[2]);
+              arrayBuffer.push(doc.output("arraybuffer"));
+              doc = generateMaterialityPdf(item, materialityRes);
+              arrayBuffer.push(doc.output("arraybuffer"));
+              doc = generateKeySystemsPdf(res[4]);
+              arrayBuffer.push(doc.output("arraybuffer"));
+              doc = generateRisksPdf(res[5]);
+              arrayBuffer.push(doc.output("arraybuffer"));
+              mergePDF(arrayBuffer);
+            });
+          },
+        },
+      ],
+    });
+  });
+}
+
+async function mergePDF(pdfsToMerges) {
+  var mergedPdf = await PDFDocument.create();
+  var actions = pdfsToMerges.map(async pdfBuffer => {
+    var pdf = await PDFDocument.load(pdfBuffer);
+    var copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
+    copiedPages.forEach((page) => {
+      // console.log('page', page.getWidth(), page.getHeight());
+      //page.setWidth(210);
+      mergedPdf.addPage(page);
+    });
+  });
+  await Promise.all(actions);
+  await mergedPdf.save();
+}
 
 function fixLayOut() {
   $(window.parent.document).find('.b_a_ck').css({
@@ -20,7 +93,9 @@ function fixLayOut() {
 
 function exportRisks() {
   getRisksListData().then(function (res) {
-    generateRisksPdf(res);
+    var doc = generateRisksPdf(res);
+    doc.save("Risks Assesments.pdf");
+
   });
 }
 
@@ -48,7 +123,8 @@ function exportMateriality() {
               return i.FY == fy;
             })[0];
             getMaterialityAppListData(fy).then(function (res) {
-              generateMaterialityPdf(item, res);
+              var doc = generateMaterialityPdf(item, res);
+              doc.save("Materiality.pdf");
             });
           },
         },
@@ -59,25 +135,29 @@ function exportMateriality() {
 
 function exportRiskFactor() {
   getRiskFactorListData().then(function (res) {
-    generateRiskFactorPdf(res);
+    var doc = generateRiskFactorPdf(res);
+    doc.save("Risk Factor Criteria.pdf");
   });
 }
 
 function exportFindingsSummary() {
   getFindingsSummaryListData().then(function (res) {
-    generateFindingsSummaryPdf(groupBy(res, "Business_x0020_Process_x0020_AreId"));
+    var doc = generateFindingsSummaryPdf(groupBy(res, "Business_x0020_Process_x0020_AreId"));
+    doc.save("Findings Summary.pdf");
   });
 }
 
 function exportFindingsAnalysis() {
   getFindingsAnalysisListData().then(function (res) {
-    generateFindingsAnalysisPdf(res);
+    var doc = generateFindingsAnalysisPdf(res);
+    doc.save("Findings Analysis.pdf");
   });
 }
 
 function exportKeySystems() {
   getKeySystemsListData().then(function (res) {
-    generateKeySystemsPdf(res);
+    var doc = generateKeySystemsPdf(res);
+    doc.save("Key Systems.pdf");
   });
 }
 
