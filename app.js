@@ -44,7 +44,7 @@ function exportAll() {
             let item = res[3].filter(function (i) {
               return i.FY == fy;
             })[0];
-            getMaterialityAppListData(fy).then(function (materialityRes) {
+            getMaterialityAppListData(fy).then( materialityRes => {
 
               //......//
               var arrayBuffer = [];
@@ -66,10 +66,16 @@ function exportAll() {
                   arrayBuffer.push(i);
                 });
 
+<<<<<<< HEAD
                 mergedPdf = await mergePDF(arrayBuffer);
                 var pdfUrl = URL.createObjectURL(
                   new Blob([mergedPdf], { type: 'application/pdf' }),
                 );
+=======
+                mergePDF(arrayBuffer).then(mergedPdf => {
+                  download(mergedPdf, "Risk Assessment Package.pdf", "application/pdf");
+                 });
+>>>>>>> 799717c963ba2a2661812486dc0414ce2c0620a5
               });
             });
           },
@@ -83,6 +89,7 @@ async function mergePDF(pdfsToMerges) {
   var mergedPdf = await PDFLib.PDFDocument.create();
   var req = [];
   pdfsToMerges.forEach(pdfBuffer => {
+<<<<<<< HEAD
     req.push(copyPage(pdfBuffer));
   });
   await Promise.all(req).then(res => {
@@ -90,13 +97,28 @@ async function mergePDF(pdfsToMerges) {
       // console.log('page', page.getWidth(), page.getHeight());
       //page.setWidth(210);
       mergedPdf.addPage(page);
+=======
+    req.push(copyPage(mergedPdf, pdfBuffer));
+  });
+  await Promise.all(req).then(res => {
+    res.forEach((pages) => {
+      pages.forEach((page) => {
+        // console.log('page', page.getWidth(), page.getHeight());
+        page.setWidth(page.getWidth());
+        mergedPdf.addPage(page);
+      });
+>>>>>>> 799717c963ba2a2661812486dc0414ce2c0620a5
     });
   });
   mergedPdfFile = await mergedPdf.save();
   return mergedPdfFile;
 }
 
+<<<<<<< HEAD
 async function copyPage(pdfBuffer) {
+=======
+async function copyPage(mergedPdf, pdfBuffer) {
+>>>>>>> 799717c963ba2a2661812486dc0414ce2c0620a5
   var pdf = await PDFLib.PDFDocument.load(pdfBuffer);
   var copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
   return copiedPages;
