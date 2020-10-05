@@ -7,8 +7,8 @@ $(document).ready(function () {
 });
 
 function fixLayOut() {
-    $(window.parent.document).find('.b_a_ck').css({
-        'height': $('html').height() + 'px',
+    $(window.parent.document).find('.b_a_3b589226').css({
+        'height': $('.exports-container').height() + 'px',
         'padding-bottom': '0'
     });
 }
