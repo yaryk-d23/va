@@ -9,7 +9,7 @@ function generateKeySystemsPdf(listData) {
     // add pdf header
     doc.setFontSize(16);
     doc.setFontStyle("bold");
-    doc.text(135, 45, "Key Systems");
+    doc.text(235, 45, "Key Systems");
     doc.setFontSize(10);
     doc.text(40, 65, "Purpose:");
     doc.setFontStyle("normal");
