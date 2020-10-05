@@ -48,19 +48,29 @@ function exportAll() {
 
               //......//
               var arrayBuffer = [];
+              var arrayBufferReq = [];
               var doc = generateRiskFactorPdf(res[0]);
-              arrayBuffer.push(doc.output("arraybuffer"));
+              arrayBufferReq.push(doc.output("arraybuffer"));
               doc = generateFindingsSummaryPdf(groupBy(res[1], "Business_x0020_Process_x0020_AreId"));
-              arrayBuffer.push(doc.output("arraybuffer"));
+              arrayBufferReq.push(doc.output("arraybuffer"));
               doc = generateFindingsAnalysisPdf(res[2]);
-              arrayBuffer.push(doc.output("arraybuffer"));
+              arrayBufferReq.push(doc.output("arraybuffer"));
               doc = generateMaterialityPdf(item, materialityRes);
-              arrayBuffer.push(doc.output("arraybuffer"));
+              arrayBufferReq.push(doc.output("arraybuffer"));
               doc = generateKeySystemsPdf(res[4]);
-              arrayBuffer.push(doc.output("arraybuffer"));
+              arrayBufferReq.push(doc.output("arraybuffer"));
               doc = generateRisksPdf(res[5]);
-              arrayBuffer.push(doc.output("arraybuffer"));
-              mergePDF(arrayBuffer);
+              arrayBufferReq.push(doc.output("arraybuffer"));
+              Promise.all(arrayBufferReq).then(buffRes => {
+                buffRes.forEach(i => {
+                  arrayBuffer.push(i);
+                });
+
+                mergedPdf = await mergePDF(arrayBuffer);
+                var pdfUrl = URL.createObjectURL(
+                  new Blob([mergedPdf], { type: 'application/pdf' }),
+                );
+              });
             });
           },
         },
@@ -70,18 +80,27 @@ function exportAll() {
 }
 
 async function mergePDF(pdfsToMerges) {
-  var mergedPdf = await PDFDocument.create();
-  var actions = pdfsToMerges.map(async pdfBuffer => {
-    var pdf = await PDFDocument.load(pdfBuffer);
-    var copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
-    copiedPages.forEach((page) => {
+  var mergedPdf = await PDFLib.PDFDocument.create();
+  var req = [];
+  pdfsToMerges.forEach(pdfBuffer => {
+    req.push(copyPage(pdfBuffer));
+  });
+  await Promise.all(req).then(res => {
+    res.forEach((page) => {
       // console.log('page', page.getWidth(), page.getHeight());
       //page.setWidth(210);
       mergedPdf.addPage(page);
     });
   });
-  await Promise.all(actions);
-  await mergedPdf.save();
+  mergedPdfFile = await mergedPdf.save();
+  return mergedPdfFile;
+}
+
+async function copyPage(pdfBuffer) {
+  var pdf = await PDFLib.PDFDocument.load(pdfBuffer);
+  var copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
+  return copiedPages;
+
 }
 
 function fixLayOut() {
