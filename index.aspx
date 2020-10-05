@@ -52,7 +52,7 @@
 
 
 <script>
-  window["SITE_LOCATION_URL"] = "https://dvagov.sharepoint.com/sites/VACOOMOBO/FROS/a123"; //https://dvagov.sharepoint.com/sites/VACOOMOBO/FROS/a123
+  window["SITE_LOCATION_URL"] = "https://netorgft4174095.sharepoint.com/stg/"; //https://dvagov.sharepoint.com/sites/VACOOMOBO/FROS/a123
 
   var scripts = [
     "/SiteAssets/app/app.js",
