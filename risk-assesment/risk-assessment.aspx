@@ -1,6 +1,6 @@
 <html>
  <head></head>
- <body>
+ <body style="margin: 0;">
 <div class="exports-container">
       <button type="button" id="export-risks">Export Risk Assessment</button>
 </div>
@@ -17,7 +17,7 @@
   window["SITE_LOCATION_URL"] = "https://dvagov.sharepoint.com/sites/VACOOMOBO/FROS/a123"; //https://dvagov.sharepoint.com/sites/VACOOMOBO/FROS/a123
 
   var scripts = [
-    "/SiteAssets/app/risk-assesment/app.js",
+    "/SiteAssets/app/risk-assesment/risk-assessment.js",
     "/SiteAssets/app/risk-assesment/export-risks.services.js",
   ];
   var styles = ["/SiteAssets/app/risk-assesment/style.css"];
