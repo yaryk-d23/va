@@ -22,7 +22,7 @@
             type: "GET",
             url:
                 window.SITE_LOCATION_URL +
-                "/_api/web/lists/getbytitle('Risk Factor Criteria')/items?$filter=Display eq 1",
+                "/_api/web/lists/getbytitle('Risk Factor Criterias')/items?$filter=Display eq 1",
             dataType: "json",
         }).then(function (res) {
             return res.value;
