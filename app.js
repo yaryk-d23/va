@@ -44,7 +44,7 @@ function exportAll() {
             let item = res[3].filter(function (i) {
               return i.FY == fy;
             })[0];
-            getMaterialityAppListData(fy).then(materialityRes => {
+            getMaterialityAppListData(fy).then(function (materialityRes) {
 
               //......//
               var arrayBuffer = [];
@@ -61,11 +61,11 @@ function exportAll() {
               arrayBufferReq.push(doc.output("arraybuffer"));
               doc = generateRisksPdf(res[5]);
               arrayBufferReq.push(doc.output("arraybuffer"));
-              Promise.all(arrayBufferReq).then(buffRes => {
-                buffRes.forEach(i => {
+              Promise.all(arrayBufferReq).then(function (buffRes) {
+                buffRes.forEach(function (i) {
                   arrayBuffer.push(i);
                 });
-                mergePDF(arrayBuffer).then(mergedPdf => {
+                mergePDF(arrayBuffer).then(function (mergedPdf) {
                   download(mergedPdf, "Risk Assessment Package.pdf", "application/pdf");
                 });
               });
@@ -80,12 +80,12 @@ function exportAll() {
 async function mergePDF(pdfsToMerges) {
   var mergedPdf = await PDFLib.PDFDocument.create();
   var req = [];
-  pdfsToMerges.forEach(pdfBuffer => {
+  pdfsToMerges.forEach(function (pdfBuffer) {
     req.push(copyPage(mergedPdf, pdfBuffer));
   });
-  await Promise.all(req).then(res => {
-    res.forEach((pages) => {
-      pages.forEach((page) => {
+  await Promise.all(req).then(function (res) {
+    res.forEach(function (pages) {
+      pages.forEach(function (page) {
         // console.log('page', page.getWidth(), page.getHeight());
         page.setWidth(page.getWidth());
         mergedPdf.addPage(page);

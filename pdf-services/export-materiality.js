@@ -284,7 +284,7 @@ function getMaterialityAppListData(fy) {
     type: "GET",
     url:
       window.SITE_LOCATION_URL +
-      "/_api/web/lists/getbytitle('AFR Line Items')/items?$filter=FY eq '" + fy + "'",
+      "/_api/web/lists/getbytitle('Financial Statement Analysis')/items?$filter=FY eq '" + fy + "'",
     dataType: "json",
   }).then(function (res) {
     return res.value;
