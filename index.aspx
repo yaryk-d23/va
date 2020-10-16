@@ -7,9 +7,9 @@
       <div>Export Risk Factor</div>
       </div>
     </div>
-  <div class="action-button" id="export-materiality">
+  <div class="action-button" id="export-findings-analysis">
     <div class="button-content">
-      <div>Export Materiality</div>
+      <div>Export Findings Analysis</div>
     </div>
   </div>
   <div class="action-button" id="export-findings-summary">
@@ -22,9 +22,9 @@
       <div>Export Key Systems</div>
     </div>
   </div>
-  <div class="action-button" id="export-findings-analysis">
+  <div class="action-button" id="export-materiality">
     <div class="button-content">
-      <div>Export Findings Analysis</div>
+      <div>Export Materiality</div>
     </div>
   </div>
   <div class="action-button" id="export-risks">
