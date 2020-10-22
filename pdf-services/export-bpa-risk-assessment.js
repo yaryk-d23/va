@@ -176,6 +176,7 @@ function generateBPARiskAssessmentPdf(
 
 function getRiskValueForArea(items) {
     let riskSum = 0;
+    if(items.length === 0) return 0;
     items.forEach(function (item) {
         riskSum += parseFloat(item.Overall_Inherent_Risk);
     });
@@ -266,7 +267,7 @@ function getBpaProcessAreasListData() {
         },
         type: "GET",
         // url: window.SITE_LOCATION_URL + "/SiteAssets/app/process_areas.txt",
-        url: window.SITE_LOCATION_URL + "/_api/web/lists/getbytitle('Bussiness Process Areas')/items?$top=50000",
+        url: window.SITE_LOCATION_URL + "/_api/web/lists/getbytitle('Business Process Areas')/items?$top=50000",
         dataType: "json",
     }).then(function (res) {
         return res.value;
@@ -296,7 +297,7 @@ function getBpaFinancialListData() {
         },
         type: "GET",
         // url: window.SITE_LOCATION_URL + "/SiteAssets/app/financial.txt",
-        url: window.SITE_LOCATION_URL + "/_api/web/lists/getbytitle('Financial Statement Analysis')/items?$top=50000&$select=*,Business_x0020_Process_x0020_Are/Title,Business_x0020_Process_x0020_Are/Id&$expand=Business_x0020_Process_x0020_Are",
+        url: window.SITE_LOCATION_URL + "/_api/web/lists/getbytitle('Financial Statement Analysis')/items?$top=50000&$select=*,Business_Process_Area/Title,Business_Process_Area/Id&$expand=Business_Process_Area",
         dataType: "json",
     }).then(function (res) {
         return res.value;
