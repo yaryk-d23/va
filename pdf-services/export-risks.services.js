@@ -171,7 +171,7 @@ function getRisksListData() {
       xhrObj.setRequestHeader("Accept", "application/json");
     },
     type: "GET",
-    url: window.SITE_LOCATION_URL + "/_api/web/lists/getbytitle('Risk Assessment')/items",
+    url: window.SITE_LOCATION_URL + "/_api/web/lists/getbytitle('Risk Assessment')/items?$top=50000",
     dataType: "json",
   }).then(function (res) {
     return res.value;

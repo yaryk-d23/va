@@ -42,6 +42,11 @@
       <div>Export Summary Risk Assessment</div>
     </div>
   </div>
+  <div class="action-button" id="export-bpa-risk-assessment">
+    <div class="button-content">
+      <div>Export BPA Risk Assessment</div>
+    </div>
+  </div>
 </div>
 
 
@@ -75,6 +80,7 @@
     "/SiteAssets/app/pdf-services/export-findings-analysis.js",
     "/SiteAssets/app/pdf-services/export-key-systems.js",
     "/SiteAssets/app/pdf-services/export-summary-risk-assessment.js",
+    "/SiteAssets/app/pdf-services/export-bpa-risk-assessment.js",
   ];
   var styles = ["/SiteAssets/app/style.css"];
 

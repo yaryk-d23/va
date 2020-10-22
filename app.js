@@ -11,15 +11,29 @@ $(document).ready(function () {
   $("#export-key-systems").on("click", exportKeySystems);
   $("#export-all").on("click", exportAll);
   $("#export-summary-risk-assessment").on("click", exportSummaryRiskAssessment);
+  $("#export-bpa-risk-assessment").on("click", exportBPARiskAssessment);
 });
 
+function exportBPARiskAssessment() {
+  Promise.all([
+    getBpaProcessAreasListData(),
+    getBpaRiskAssessmentListData(),
+    getBpaFindingsListData(),
+    getBpaFinancialListData()
+  ]).then(function (res) {
+    var doc = generateBPARiskAssessmentPdf(res[0], res[1], res[2], res[3]);
+    doc.save("BPA Risk Assessment.pdf");
+  })
+}
 
 function exportSummaryRiskAssessment() {
   getSummaryRiskAssessmentListData().then(function (res) {
-    let groupedData = groupBy(res, 'Business_Process_AreaId');
-    var doc = generateSummaryRiskAssessmentPdf(groupedData);
-    doc.save("Summary Risk Assessment.pdf");
-
+    getInternalControlsRiskAssessmentListData().then(function (internalCOntrolsRes) {
+      let groupedData = groupBy(res, 'Business_Process_AreaId');
+      let groupedInternalControls = groupBy(internalCOntrolsRes, 'Business_Process_AreaId');
+      var doc = generateSummaryRiskAssessmentPdf(groupedData, groupedInternalControls);
+      doc.save("Summary Risk Assessment.pdf");
+    });
   });
 }
 
