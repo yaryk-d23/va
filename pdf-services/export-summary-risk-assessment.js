@@ -341,8 +341,8 @@ function getSummaryRiskAssessmentListData() {
             xhrObj.setRequestHeader("Accept", "application/json");
         },
         type: "GET",
-        url: window.SITE_LOCATION_URL + "/SiteAssets/app/risk-assessment.txt",
-        // url: window.SITE_LOCATION_URL + "/_api/web/lists/getbytitle('Risk Assessment')/items?$top=50000&$select=*,Business_Process_Area/Title,Business_Process_Area/Id&$expand=Business_Process_Area",
+        // url: window.SITE_LOCATION_URL + "/SiteAssets/app/risk-assessment.txt",
+        url: window.SITE_LOCATION_URL + "/_api/web/lists/getbytitle('Risk Assessment')/items?$top=50000&$select=*,Business_Process_Area/Title,Business_Process_Area/Id&$expand=Business_Process_Area",
         dataType: "json",
     }).then(function (res) {
         return res.value;
@@ -356,8 +356,8 @@ function getInternalControlsRiskAssessmentListData() {
             xhrObj.setRequestHeader("Accept", "application/json");
         },
         type: "GET",
-        url: window.SITE_LOCATION_URL + "/SiteAssets/app/internal_controls.txt",
-        // url: window.SITE_LOCATION_URL + "/_api/web/lists/getbytitle('Internal Controls and Evaluations')/items?$top=50000",
+        // url: window.SITE_LOCATION_URL + "/SiteAssets/app/internal_controls.txt",
+        url: window.SITE_LOCATION_URL + "/_api/web/lists/getbytitle('Internal Controls and Evaluations')/items?$top=50000",
         dataType: "json",
     }).then(function (res) {
         return res.value;

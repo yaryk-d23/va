@@ -121,7 +121,7 @@ function getRiskFactorListData() {
     type: "GET",
     url:
       window.SITE_LOCATION_URL +
-      "/_api/web/lists/getbytitle('Risk Factor Criteria')/items?$filter=Display eq 1",
+      "/_api/web/lists/getbytitle('Risk Factor Criteria')/items?$top=50000&$filter=Display eq 1",
     dataType: "json",
   }).then(function (res) {
     return res.value;

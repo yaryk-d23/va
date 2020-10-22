@@ -280,7 +280,7 @@ function getMaterialityListData() {
     type: "GET",
     url:
       window.SITE_LOCATION_URL +
-      "/_api/web/lists/getbytitle('Materiality List')/items?$orderby=FY",
+      "/_api/web/lists/getbytitle('Materiality List')/items?$top=50000&$orderby=FY",
     dataType: "json",
   }).then(function (res) {
     return res.value;
@@ -295,7 +295,7 @@ function getMaterialityAppListData(fy) {
     type: "GET",
     url:
       window.SITE_LOCATION_URL +
-      "/_api/web/lists/getbytitle('Financial Statement Analysis')/items?$filter=FY eq '" + fy + "'",
+      "/_api/web/lists/getbytitle('Financial Statement Analysis')/items?$top=50000&$filter=FY eq '" + fy + "'",
     dataType: "json",
   }).then(function (res) {
     return res.value;

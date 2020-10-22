@@ -127,7 +127,7 @@ function getKeySystemsListData() {
         },
         type: "GET",
         // url: window.SITE_LOCATION_URL + "/SiteAssets/app/data.txt",
-        url: window.SITE_LOCATION_URL + "/_api/web/lists/getbytitle('Key Systems')/items",
+        url: window.SITE_LOCATION_URL + "/_api/web/lists/getbytitle('Key Systems')/items?$top=50000",
         dataType: "json",
     }).then(function (res) {
         return res.value;

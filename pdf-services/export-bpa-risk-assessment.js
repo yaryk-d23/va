@@ -251,8 +251,8 @@ function getBpaRiskAssessmentListData() {
             xhrObj.setRequestHeader("Accept", "application/json");
         },
         type: "GET",
-        url: window.SITE_LOCATION_URL + "/SiteAssets/app/risk-assessment.txt",
-        // url: window.SITE_LOCATION_URL + "/_api/web/lists/getbytitle('Risk Assessment')/items?$top=50000&$select=*,Business_Process_Area/Title,Business_Process_Area/Id&$expand=Business_Process_Area",
+        // url: window.SITE_LOCATION_URL + "/SiteAssets/app/risk-assessment.txt",
+        url: window.SITE_LOCATION_URL + "/_api/web/lists/getbytitle('Risk Assessment')/items?$top=50000&$select=*,Business_Process_Area/Title,Business_Process_Area/Id&$expand=Business_Process_Area",
         dataType: "json",
     }).then(function (res) {
         return res.value;
@@ -265,8 +265,8 @@ function getBpaProcessAreasListData() {
             xhrObj.setRequestHeader("Accept", "application/json");
         },
         type: "GET",
-        url: window.SITE_LOCATION_URL + "/SiteAssets/app/process_areas.txt",
-        // url: window.SITE_LOCATION_URL + "/_api/web/lists/getbytitle('Bussiness Process Areas')/items?$top=50000",
+        // url: window.SITE_LOCATION_URL + "/SiteAssets/app/process_areas.txt",
+        url: window.SITE_LOCATION_URL + "/_api/web/lists/getbytitle('Bussiness Process Areas')/items?$top=50000",
         dataType: "json",
     }).then(function (res) {
         return res.value;
@@ -280,8 +280,8 @@ function getBpaFindingsListData() {
             xhrObj.setRequestHeader("Accept", "application/json");
         },
         type: "GET",
-        url: window.SITE_LOCATION_URL + "/SiteAssets/app/funding.txt",
-        // url: window.SITE_LOCATION_URL + "/_api/web/lists/getbytitle('Findings Analysis')/items?$top=50000&$select=*,Business_x0020_Process_x0020_Are/Title,Business_x0020_Process_x0020_Are/Id&$expand=Business_x0020_Process_x0020_Are",
+        // url: window.SITE_LOCATION_URL + "/SiteAssets/app/funding.txt",
+        url: window.SITE_LOCATION_URL + "/_api/web/lists/getbytitle('Findings Analysis')/items?$top=50000&$select=*,Business_x0020_Process_x0020_Are/Title,Business_x0020_Process_x0020_Are/Id&$expand=Business_x0020_Process_x0020_Are",
         dataType: "json",
     }).then(function (res) {
         return res.value;
@@ -295,8 +295,8 @@ function getBpaFinancialListData() {
             xhrObj.setRequestHeader("Accept", "application/json");
         },
         type: "GET",
-        url: window.SITE_LOCATION_URL + "/SiteAssets/app/financial.txt",
-        // url: window.SITE_LOCATION_URL + "/_api/web/lists/getbytitle('Financial Statement Analysis')/items?$top=50000&$select=*,Business_x0020_Process_x0020_Are/Title,Business_x0020_Process_x0020_Are/Id&$expand=Business_x0020_Process_x0020_Are",
+        // url: window.SITE_LOCATION_URL + "/SiteAssets/app/financial.txt",
+        url: window.SITE_LOCATION_URL + "/_api/web/lists/getbytitle('Financial Statement Analysis')/items?$top=50000&$select=*,Business_x0020_Process_x0020_Are/Title,Business_x0020_Process_x0020_Are/Id&$expand=Business_x0020_Process_x0020_Are",
         dataType: "json",
     }).then(function (res) {
         return res.value;
