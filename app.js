@@ -10,8 +10,18 @@ $(document).ready(function () {
   $("#export-findings-analysis").on("click", exportFindingsAnalysis);
   $("#export-key-systems").on("click", exportKeySystems);
   $("#export-all").on("click", exportAll);
+  $("#export-summary-risk-assessment").on("click", exportSummaryRiskAssessment);
 });
 
+
+function exportSummaryRiskAssessment() {
+  getSummaryRiskAssessmentListData().then(function (res) {
+    let groupedData = groupBy(res, 'Business_Process_AreaId');
+    var doc = generateSummaryRiskAssessmentPdf(groupedData);
+    doc.save("Summary Risk Assessment.pdf");
+
+  });
+}
 
 function exportAll() {
   var reqs = [

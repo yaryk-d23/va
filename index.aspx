@@ -37,6 +37,11 @@
       <div>Export Risk Assessment Package</div>
     </div>
   </div>
+  <div class="action-button" id="export-summary-risk-assessment">
+    <div class="button-content">
+      <div>Export Summary Risk Assessment</div>
+    </div>
+  </div>
 </div>
 
 
@@ -59,7 +64,7 @@
 
 
 <script>
-  window["SITE_LOCATION_URL"] = "https://dvagov.sharepoint.com/sites/VACOOMOBO/FROS/a123"; //https://dvagov.sharepoint.com/sites/VACOOMOBO/FROS/a123
+  window["SITE_LOCATION_URL"] = "https://netorgft4174095.sharepoint.com/stg"; //https://dvagov.sharepoint.com/sites/VACOOMOBO/FROS/a123
 
   var scripts = [
     "/SiteAssets/app/app.js",
@@ -69,6 +74,7 @@
     "/SiteAssets/app/pdf-services/export-findings-summary.js",
     "/SiteAssets/app/pdf-services/export-findings-analysis.js",
     "/SiteAssets/app/pdf-services/export-key-systems.js",
+    "/SiteAssets/app/pdf-services/export-summary-risk-assessment.js",
   ];
   var styles = ["/SiteAssets/app/style.css"];
 

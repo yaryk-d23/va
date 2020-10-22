@@ -16,9 +16,12 @@ function generateMaterialityPdf(materialityData, materialityApplicationData) {
   doc.text(
     70,
     65,
-    "To calculate materiality to be applied to VA financial statements to determine material line items for the A-123,"
+    "To calculate applicable VA Financial Statements materiality to determine respective material line items for ",
+    {
+      maxWidth: 530,
+    }
   );
-  doc.text(20, 80, "Appendix A Risk Assessment.");
+  doc.text(20, 80, "OMB Circular A-123, Appendix A, Risk Assessment?");
 
   // add content
 
@@ -167,6 +170,14 @@ function generateMaterialityPdf(materialityData, materialityApplicationData) {
   doc.autoTable(cols, table, style);
   // save file
   //doc.save("Materiality.pdf");
+
+  doc.setFontSize(10);
+  doc.setFontStyle("normal");
+  let pageCount = doc.internal.getNumberOfPages();
+  for (let i = 0; i < pageCount; i++) {
+    doc.setPage(i + 1);
+    doc.text(200, doc.internal.pageSize.height - 20, "(Financial Audit Manual (FAM) Volume 1 Section 230)");
+  }
   return doc;
 }
 
@@ -232,7 +243,7 @@ function getMaterialityPdfStyles(startY) {
       top: 20,
       left: 40,
       right: 40,
-      bottom: 20,
+      bottom: 40,
     },
     styles: {
       font: "helvetica",
