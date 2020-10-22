@@ -83,7 +83,7 @@ function generateSummaryRiskAssessmentPdf(data) {
         ];
         table = [];
         $.each(highRiskItems, function (key, val) {
-            table.push({ col1: key, col2: getRiskValueForArea(val), col3: val.length, col4: getInternalControlEffectForArea(val), col5: 0, });
+            table.push({ col1: (val[0].Business_Process_Area ? val[0].Business_Process_Area.Title : 'Unassigned'), col2: getRiskValueForArea(val), col3: val.length, col4: getInternalControlEffectForArea(val), col5: 0, });
         });
         style = getMaterialityPdfStyles(doc.previousAutoTable.finalY);
         style.didParseCell = createdCell;
@@ -123,7 +123,7 @@ function generateSummaryRiskAssessmentPdf(data) {
         ];
         table = [];
         $.each(mediumRiskItems, function (key, val) {
-            table.push({ col1: key, col2: getRiskValueForArea(val), col3: val.length, col4: getInternalControlEffectForArea(val), col5: 0, });
+            table.push({ col1: (val[0].Business_Process_Area ? val[0].Business_Process_Area.Title : 'Unassigned'), col2: getRiskValueForArea(val), col3: val.length, col4: getInternalControlEffectForArea(val), col5: 0, });
         });
         style = getMaterialityPdfStyles(doc.previousAutoTable.finalY);
         style.didParseCell = createdCell;
@@ -163,7 +163,7 @@ function generateSummaryRiskAssessmentPdf(data) {
         ];
         table = [];
         $.each(lowRiskItems, function (key, val) {
-            table.push({ col1: key, col2: getRiskValueForArea(val), col3: val.length, col4: getInternalControlEffectForArea(val), col5: 0, });
+            table.push({ col1: (val[0].Business_Process_Area ? val[0].Business_Process_Area.Title : 'Unassigned'), col2: getRiskValueForArea(val), col3: val.length, col4: getInternalControlEffectForArea(val), col5: 0, });
         });
         style = getMaterialityPdfStyles(doc.previousAutoTable.finalY);
         style.didParseCell = createdCell;
