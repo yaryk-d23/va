@@ -25,10 +25,12 @@ function generateKeySystemsPdf(listData) {
     // add content
     let cols = [
         {
+            title: "Acronym",
+            dataKey: "col0",
+        }, {
             title: "System",
             dataKey: "col1",
-        },
-        {
+        }, {
             title: "System Location",
             dataKey: "col2",
         }
@@ -36,11 +38,12 @@ function generateKeySystemsPdf(listData) {
     let table = [];
     listData.forEach(function (item) {
         table.push({
+            col0: item.System_Acronym ? item.System_Acronym : "",
             col1: item.Title ? item.Title : '',
             col2: item.System_Location ? item.System_Location : "",
         });
         table.push({
-            col1: item.System_Description ? item.System_Description : '',
+            col0: item.System_Description ? item.System_Description : '',
         });
     });
     let createdCell = function (data) {
@@ -53,15 +56,15 @@ function generateKeySystemsPdf(listData) {
         if (
             data.section == "body" &&
             data.row.index % 2 !== 0 &&
-            data.column.dataKey == "col1"
+            data.column.dataKey == "col0"
         ) {
             data.cell.styles.halign = 'left';
             data.cell.styles.valign = 'top';
             data.cell.styles.fillColor = [255, 255, 255];
-            data.cell.colSpan = 4;
+            data.cell.colSpan = 3;
         }
     };
-    let style = getKeySystemsPdfStyles(100);
+    let style = getKeySystemsPdfStyles(80);
     style.didParseCell = createdCell;
     doc.autoTable(cols, table, style);
     // save file
@@ -72,6 +75,13 @@ function getKeySystemsPdfStyles(startY) {
     return {
         startY: startY + 5,
         columnStyles: {
+            col0: {
+                fontSize: 10,
+                halign: "center",
+                fontStyle: "normal",
+                minCellWidth: 100,
+                fillColor: [255],
+            },
             col1: {
                 fontSize: 10,
                 halign: "center",
@@ -83,6 +93,7 @@ function getKeySystemsPdfStyles(startY) {
                 fontSize: 10,
                 halign: "center",
                 fontStyle: "normal",
+                minCellWidth: 100,
                 fillColor: [255, 255, 255]
             },
         },

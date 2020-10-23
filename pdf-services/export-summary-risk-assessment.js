@@ -276,6 +276,7 @@ function generateSummaryRiskAssessmentPdf(data, internalControls) {
 
 function getInternalControlEffectForArea(items) {
     let riskSum = 0;
+    if (items.length === 0) return 0;
     items.forEach(function (item) {
         riskSum += parseInt(item.CumulativeInternalControlEffecti ? item.CumulativeInternalControlEffecti[0] : 0);
     });
@@ -284,6 +285,7 @@ function getInternalControlEffectForArea(items) {
 
 function getRiskValueForArea(items) {
     let riskSum = 0;
+    if (items.length === 0) return 0;
     items.forEach(function (item) {
         riskSum += parseFloat(item.Overall_Inherent_Risk);
     });

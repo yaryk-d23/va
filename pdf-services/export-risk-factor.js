@@ -16,7 +16,7 @@ function generateRiskFactorPdf(data) {
   let text = doc.text(
     40,
     65,
-    "                 To define the qualitative and quantitative risk factors evaluated in the assessment of risk for each significant business process and identify the relative weighting for each risk factor. The risk factor weightings were determined based on management priorities and the significance of the particular risk factor to the overall business process.",
+    "                 To define the qualitative and quantitative risk factors evaluated in the assessment of risk for each significant business process and identify the relative weighting for each risk factor.",
     {
       maxWidth: 530,
     }
@@ -51,7 +51,7 @@ function generateRiskFactorPdf(data) {
       data.cell.styles.fillColor = [132, 151, 176];
     }
   };
-  style = getMaterialityPdfStyles(100);
+  style = getMaterialityPdfStyles(80);
   style.didParseCell = createdCell;
   doc.autoTable(cols, table, style);
 

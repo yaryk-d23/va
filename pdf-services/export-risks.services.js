@@ -77,6 +77,7 @@ function generateRisksPdf(data) {
   ];
   let table = data.map(function (i) {
     let newItem = i;
+    newItem.Overall_Inherent_Risk = Math.round(parseFloat(newItem.Overall_Inherent_Risk) * 100) / 100;
     newItem.Risk_Description = i.Risk_Description
       ? i.Risk_Description + "\n"
       : "";
