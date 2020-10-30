@@ -46,7 +46,15 @@ function exportAll() {
     getFindingsAnalysisListData(),
     getMaterialityListData(),
     getKeySystemsListData(),
-    getRisksListData(),
+    // getRisksListData(),
+    getSummaryProcessAreasListData(),
+    getSummaryRiskAssessmentListData(),
+    getInternalControlsRiskAssessmentListData(),
+
+    getBpaProcessAreasListData(),
+    getBpaRiskAssessmentListData(),
+    getBpaFindingsListData(),
+    getBpaFinancialListData()
   ];
   Promise.all(reqs).then(function (res) {
     $("#materiality-fy").html('');
@@ -75,18 +83,29 @@ function exportAll() {
               //......//
               var arrayBuffer = [];
               var arrayBufferReq = [];
-              var doc = generateRiskFactorPdf(res[0]);
+              // Summary Risk Assessment
+              doc = generateSummaryRiskAssessmentPdf(res[5], groupBy(res[6], 'Business_Process_AreaId'), groupBy(res[7], 'Business_Process_AreaId'));
               arrayBufferReq.push(doc.output("arraybuffer"));
-              doc = generateFindingsSummaryPdf(groupBy(res[1], "Business_x0020_Process_x0020_AreId"));
+              //BPA Risk Assessment
+              doc = generateBPARiskAssessmentPdf(res[8], res[9], res[10], res[11]);
               arrayBufferReq.push(doc.output("arraybuffer"));
-              doc = generateFindingsAnalysisPdf(res[2]);
-              arrayBufferReq.push(doc.output("arraybuffer"));
+              //Materiality
               doc = generateMaterialityPdf(item, materialityRes);
               arrayBufferReq.push(doc.output("arraybuffer"));
+              //Risk Factor
+              var doc = generateRiskFactorPdf(res[0]);
+              arrayBufferReq.push(doc.output("arraybuffer"));
+              //Findings Summary
+              doc = generateFindingsSummaryPdf(groupBy(res[1], "Business_x0020_Process_x0020_AreId"));
+              arrayBufferReq.push(doc.output("arraybuffer"));
+              //Findings Analysis
+              doc = generateFindingsAnalysisPdf(res[2]);
+              arrayBufferReq.push(doc.output("arraybuffer"));
+              //Key Systems
               doc = generateKeySystemsPdf(res[4]);
               arrayBufferReq.push(doc.output("arraybuffer"));
-              doc = generateRisksPdf(res[5]);
-              arrayBufferReq.push(doc.output("arraybuffer"));
+              // doc = generateRisksPdf(res[5]);
+              // arrayBufferReq.push(doc.output("arraybuffer"));
               Promise.all(arrayBufferReq).then(function (buffRes) {
                 buffRes.forEach(function (i) {
                   arrayBuffer.push(i);

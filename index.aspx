@@ -27,11 +27,11 @@
       <div>Export Materiality</div>
     </div>
   </div>
-  <div class="action-button" id="export-risks">
+  <%-- <div class="action-button" id="export-risks">
     <div class="button-content">
       <div>Export Risk Assessment</div>
     </div>
-  </div>
+  </div> --%>
   <div class="action-button" id="export-all">
     <div class="button-content">
       <div>Export Risk Assessment Package</div>
