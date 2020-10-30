@@ -77,8 +77,9 @@ function generateRisksPdf(data) {
   ];
   let table = data.map(function (i) {
     let newItem = i;
-    newItem.Risk_Assertions = newItem.Risk_Assertions ? newItem.Risk_Assertions.map(function (x) { return x.Title; }) : "";
-    newItem.RelatedInternalControlGap = newItem.RelatedInternalControlGap ? newItem.RelatedInternalControlGap.map(function (x) { return x.Title; }) : "";
+    newItem.Risk_Assertions = (newItem.Risk_Assertions && newItem.Risk_Assertions.length) ? newItem.Risk_Assertions.map(function (x) { return x.Title; }) : "";
+    newItem.RelatedInternalControlGap = newItem.RelatedInternalControlGap ? newItem.RelatedInternalControlGap.Title : "";
+    newItem.Business_Process_Area = newItem.Business_Process_Area ? newItem.Business_Process_Area.Title : "";
     newItem.Overall_Inherent_Risk = Math.round(parseFloat(newItem.Overall_Inherent_Risk) * 100) / 100;
     newItem.Risk_Description = i.Risk_Description
       ? i.Risk_Description + "\n"
@@ -174,7 +175,7 @@ function getRisksListData() {
       xhrObj.setRequestHeader("Accept", "application/json");
     },
     type: "GET",
-    url: window.SITE_LOCATION_URL + "/_api/web/lists/getbytitle('Risk Assessment')/items?$top=50000&$select=*,Risk_Assertions/Title,RelatedInternalControlGap/Title&$expand=Risk_Assertions,RelatedInternalControlGap",
+    url: window.SITE_LOCATION_URL + "/_api/web/lists/getbytitle('Risk Assessment')/items?$top=50000&$select=*,Risk_Assertions/Title,RelatedInternalControlGap/Title,Business_Process_Area/Title&$expand=Risk_Assertions,RelatedInternalControlGap,Business_Process_Area",
     dataType: "json",
   }).then(function (res) {
     return res.value;

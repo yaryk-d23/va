@@ -288,7 +288,7 @@ function generateSummaryRiskAssessmentPdf(areas, data, internalControls) {
     ];
     table = [
         {
-            col01: "Risk Rating Column - The risk rating is on a scale of 1-3"
+            col01: "Risk Rating Keys - The risk rating is on a scale of 1-3"
         }, {
             col01: "Low risk is 1 - 1.49",
             col02: "Medium risk is 1.5 - 2.49",
@@ -335,7 +335,7 @@ function generateSummaryRiskAssessmentPdf(areas, data, internalControls) {
     ];
     table = [
         {
-            col01: "Internal Control Effectivess Column - The IC effectiveness is on a scal of 1-3"
+            col01: "Internal Control Effectivess Keys - The IC effectiveness is on a scal of 1-3"
         }, {
             col01: "High Effectiveness is 1 - 1.49",
             col02: "Medium Effectiveness is 1.5 - 2.49",

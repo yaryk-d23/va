@@ -31,7 +31,7 @@ function generateRiskFactorPdf(data) {
   let table = [];
   data.forEach(function (item) {
     table.push({
-      fullColl: item.Title + " - " + Math.round((item.RiskWeighting * 100) * 100) / 100 + "%",
+      fullColl: item.Title + " - " + (Math.round((item.RiskWeighting * 100) * 100) / 100) + "%",
     });
     table.push({
       fullColl: item.Risk_x0020_Factor_x0020_Descript,
@@ -51,7 +51,7 @@ function generateRiskFactorPdf(data) {
       data.cell.styles.fillColor = [132, 151, 176];
     }
   };
-  style = getMaterialityPdfStyles(80);
+  style = getMaterialityPdfStyles(90);
   style.didParseCell = createdCell;
   doc.autoTable(cols, table, style);
 
