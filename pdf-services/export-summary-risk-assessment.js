@@ -1,4 +1,4 @@
-function generateSummaryRiskAssessmentPdf(data, internalControls) {
+function generateSummaryRiskAssessmentPdf(areas, data, internalControls) {
     var doc = new jsPDF({
         orientation: "p",
         unit: "pt",
@@ -23,25 +23,23 @@ function generateSummaryRiskAssessmentPdf(data, internalControls) {
     doc.text(20, 77, "facing, the number of internal controls present in each BPA, and the average internal control effectiveness rating of all internal controls each BPA. " +
         "This analysis assists leadership in understanding the level of program risk, which BPA's are facing higher risks in rating and number, and the number and " +
         "effectiveness of internal controls that have been deployed to reduce the risk so leadership can easily identify priority areas, take necessary action, and " +
-        "monitor progress. Risk Rating Column - The risk rating is on a scale of 1-3. Low risk is 1 - 1.49, Medium risk is 1.5 - 2.49, High risk is 2.5 - 3." +
-        "Internal Control Effectivess Column - The IC effectiveness is on a scal of 1-3. High Effectiveness is 1 - 1.49, Medium Effectiveness is 1.5 - 2.49, " +
-        "Low Effectiveness is 2.5 - 3.", {
+        "monitor progress.", {
         maxWidth: 550,
     });
 
     let highRiskItems = [];
     let mediumRiskItems = [];
     let lowRiskItems = [];
-    $.each(data, function (key, val) {
-        let riskVal = getRiskValueForArea(val);
+    $.each(areas, function (key, val) {
+        let riskVal = getSummaryRiskValueForArea(data[val.Id]);
         if (riskVal > 2.49) {
-            highRiskItems.push(data[key]);
+            highRiskItems.push(val);
         }
         else if (riskVal > 1.49 && riskVal <= 2.49) {
-            mediumRiskItems.push(data[key]);
+            mediumRiskItems.push(val);
         }
         else if (riskVal <= 1.49) {
-            lowRiskItems.push(data[key]);
+            lowRiskItems.push(val);
         }
     });
 
@@ -59,7 +57,7 @@ function generateSummaryRiskAssessmentPdf(data, internalControls) {
         table = [
             { fullColl: "High Risk" }
         ];
-        style = getMaterialityPdfStyles(170);
+        style = getSummaryRiskAssessmentPdfStyles(120);
         createdCell = function (data) {
             if (data.section == "body" && data.column.dataKey === 'fullColl') {
                 data.cell.styles.fillColor = [255, 0, 0];
@@ -100,14 +98,14 @@ function generateSummaryRiskAssessmentPdf(data, internalControls) {
         ];
         $.each(highRiskItems, function (key, val) {
             table.push({
-                col1: (val[0].Business_Process_Area ? val[0].Business_Process_Area.Title : 'Unassigned'),
-                col2: getRiskValueForArea(val),
-                col3: val.length,
-                col4: getInternalControlEffectForArea(val),
-                col5: internalControls[val[0].Business_Process_AreaId] ? internalControls[val[0].Business_Process_AreaId].length : 0,
+                col1: (val.Title),
+                col2: getSummaryRiskValueForArea(data[val.Id]),
+                col3: data[val.Id] ? data[val.Id].length : 0,
+                col4: getInternalControlEffectForArea(data[val.Id]),
+                col5: internalControls[val.Id] ? internalControls[val.Id].length : 0,
             });
         });
-        style = getMaterialityPdfStyles(doc.previousAutoTable.finalY);
+        style = getSummaryRiskAssessmentPdfStyles(doc.previousAutoTable.finalY);
         createdCell = function (data) { };
         style.didParseCell = createdCell;
         doc.autoTable(cols, table, style);
@@ -122,7 +120,7 @@ function generateSummaryRiskAssessmentPdf(data, internalControls) {
         table = [
             { fullColl: "Medium Risk" }
         ];
-        style = getMaterialityPdfStyles(doc.previousAutoTable.finalY ? (doc.previousAutoTable.finalY + 10) : 170);
+        style = getSummaryRiskAssessmentPdfStyles(doc.previousAutoTable.finalY ? (doc.previousAutoTable.finalY + 10) : 120);
         createdCell = function (data) {
             if (data.section == "body" && data.column.dataKey === 'fullColl') {
                 data.cell.styles.fillColor = [255, 192, 0];
@@ -163,14 +161,14 @@ function generateSummaryRiskAssessmentPdf(data, internalControls) {
         ];
         $.each(mediumRiskItems, function (key, val) {
             table.push({
-                col1: (val[0].Business_Process_Area ? val[0].Business_Process_Area.Title : 'Unassigned'),
-                col2: getRiskValueForArea(val),
-                col3: val.length,
-                col4: getInternalControlEffectForArea(val),
-                col5: internalControls[val[0].Business_Process_AreaId] ? internalControls[val[0].Business_Process_AreaId].length : 0,
+                col1: (val.Title),
+                col2: getSummaryRiskValueForArea(data[val.Id]),
+                col3: data[val.Id] ? data[val.Id].length : 0,
+                col4: getInternalControlEffectForArea(data[val.Id]),
+                col5: internalControls[val.Id] ? internalControls[val.Id].length : 0,
             });
         });
-        style = getMaterialityPdfStyles(doc.previousAutoTable.finalY);
+        style = getSummaryRiskAssessmentPdfStyles(doc.previousAutoTable.finalY);
         createdCell = function (data) { };
         style.didParseCell = createdCell;
         doc.autoTable(cols, table, style);
@@ -185,7 +183,7 @@ function generateSummaryRiskAssessmentPdf(data, internalControls) {
         table = [
             { fullColl: "Low Risk" }
         ];
-        style = getMaterialityPdfStyles(doc.previousAutoTable.finalY ? (doc.previousAutoTable.finalY + 10) : 170);
+        style = getSummaryRiskAssessmentPdfStyles(doc.previousAutoTable.finalY ? (doc.previousAutoTable.finalY + 10) : 120);
         createdCell = function (data) {
             if (data.section == "body" && data.column.dataKey === 'fullColl') {
                 data.cell.styles.fillColor = [146, 208, 80];
@@ -226,14 +224,14 @@ function generateSummaryRiskAssessmentPdf(data, internalControls) {
         ];
         $.each(lowRiskItems, function (key, val) {
             table.push({
-                col1: (val[0].Business_Process_Area ? val[0].Business_Process_Area.Title : 'Unassigned'),
-                col2: getRiskValueForArea(val),
-                col3: val.length,
-                col4: getInternalControlEffectForArea(val),
-                col5: internalControls[val[0].Business_Process_AreaId] ? internalControls[val[0].Business_Process_AreaId].length : 0,
+                col1: (val.Title),
+                col2: getSummaryRiskValueForArea(data[val.Id]),
+                col3: data[val.Id] ? data[val.Id].length : 0,
+                col4: getInternalControlEffectForArea(data[val.Id]),
+                col5: internalControls[val.Id] ? internalControls[val.Id].length : 0,
             });
         });
-        style = getMaterialityPdfStyles(doc.previousAutoTable.finalY);
+        style = getSummaryRiskAssessmentPdfStyles(doc.previousAutoTable.finalY);
         createdCell = function (data) { };
         style.didParseCell = createdCell;
         doc.autoTable(cols, table, style);
@@ -255,18 +253,116 @@ function generateSummaryRiskAssessmentPdf(data, internalControls) {
                 "The data above was populated from the A-123 Program Office SharePoint tool."
         }
     ];
-    style = getMaterialityPdfStyles(doc.previousAutoTable.finalY ? (doc.previousAutoTable.finalY + 20) : 170);
+    style = getSummaryRiskAssessmentPdfStyles(doc.previousAutoTable.finalY ? (doc.previousAutoTable.finalY + 20) : 120);
     createdCell = function (data) {
         if (data.section == "body" && data.column.dataKey === 'fullColl' && data.row.index === 0) {
             data.cell.styles.fillColor = [255];
             // data.cell.styles.textColor = [255];
             data.cell.styles.halign = "left";
             data.cell.styles.fontStyle = "bold";
+            data.cell.styles.valign = "top";
+            data.cell.styles.fontSize = 10;
+            data.cell.styles.cellPadding = 0;
         }
-        if (data.section == "body" && data.column.dataKey === 'fullColl') {
+        if (data.section == "body" && data.column.dataKey === 'fullColl' && data.row.index !== 0) {
             data.cell.styles.fontSize = 10;
             data.cell.styles.cellPadding = 0;
             data.cell.styles.valign = "top";
+            data.cell.styles.fontStyle = "normal";
+        }
+    };
+    style.didParseCell = createdCell;
+    doc.autoTable(cols, table, style);
+
+    cols = [
+        {
+            title: "",
+            dataKey: "col01",
+        }, {
+            title: "",
+            dataKey: "col02",
+        }, {
+            title: "",
+            dataKey: "col03",
+        },
+    ];
+    table = [
+        {
+            col01: "Risk Rating Keys - The risk rating is on a scale of 1-3"
+        }, {
+            col01: "Low risk is 1 - 1.49",
+            col02: "Medium risk is 1.5 - 2.49",
+            col03: "High risk is 2.5 - 3",
+        }
+    ];
+    style = getSummaryRiskAssessmentPdfStyles(doc.previousAutoTable.finalY + 20);
+    createdCell = function (data) {
+        if (data.section == "body" && data.column.dataKey === 'col01' && data.row.index === 0) {
+            data.cell.styles.fillColor = [243];
+            // data.cell.styles.textColor = [255];
+            data.cell.styles.halign = "left";
+            // data.cell.styles.fontStyle = "bold";
+            data.cell.colSpan = 3;
+            // data.cell.styles.cellPadding = 0;
+        }
+        if (data.section == "body" && data.column.dataKey === 'col01' && data.row.index !== 0) {
+            data.cell.styles.fillColor = [146, 208, 80];
+            data.cell.styles.textColor = [255];
+        }
+        if (data.section == "body" && data.column.dataKey === 'col02' && data.row.index !== 0) {
+            data.cell.styles.fillColor = [255, 192, 0];
+            data.cell.styles.textColor = [255];
+        }
+        if (data.section == "body" && data.column.dataKey === 'col03' && data.row.index !== 0) {
+            data.cell.styles.fillColor = [255, 0, 0];
+            data.cell.styles.textColor = [255];
+        }
+    };
+    style.didParseCell = createdCell;
+    doc.autoTable(cols, table, style);
+
+    cols = [
+        {
+            title: "",
+            dataKey: "col01",
+        }, {
+            title: "",
+            dataKey: "col02",
+        }, {
+            title: "",
+            dataKey: "col03",
+        },
+    ];
+    table = [
+        {
+            col01: "Internal Control Effectivess Keys - The IC effectiveness is on a scal of 1-3"
+        }, {
+            col01: "High Effectiveness is 1 - 1.49",
+            col02: "Medium Effectiveness is 1.5 - 2.49",
+            col03: " Low Effectiveness is 2.5 - 3",
+        }
+    ];
+    style = getSummaryRiskAssessmentPdfStyles(doc.previousAutoTable.finalY + 20);
+    createdCell = function (data) {
+        if (data.section == "body" && data.column.dataKey === 'col01' && data.row.index === 0) {
+            data.cell.styles.fillColor = [243];
+            // data.cell.styles.textColor = [255];
+            data.cell.styles.halign = "left";
+            // data.cell.styles.fontStyle = "bold";
+            data.cell.colSpan = 3;
+            // data.cell.styles.cellPadding = 0;
+        }
+        if (data.section == "body" && data.column.dataKey === 'col01' && data.row.index !== 0) {
+            data.cell.styles.fillColor = [146, 208, 80];
+            data.cell.styles.textColor = [255];
+        }
+        if (data.section == "body" && data.column.dataKey === 'col02' && data.row.index !== 0) {
+            data.cell.styles.fillColor = [255, 192, 0];
+            data.cell.styles.textColor = [255];
+        }
+        if (data.section == "body" && data.column.dataKey === 'col03' && data.row.index !== 0) {
+            data.cell.styles.fillColor = [255, 0, 0];
+            data.cell.styles.textColor = [255];
         }
     };
     style.didParseCell = createdCell;
@@ -276,20 +372,20 @@ function generateSummaryRiskAssessmentPdf(data, internalControls) {
 
 function getInternalControlEffectForArea(items) {
     let riskSum = 0;
-    if (items.length === 0) return 0;
+    if (!items || items.length === 0) return 0;
     items.forEach(function (item) {
         riskSum += parseInt(item.CumulativeInternalControlEffecti ? item.CumulativeInternalControlEffecti[0] : 0);
     });
-    return (riskSum / items.length).toFixed(2);
+    return Math.round((riskSum / items.length) * 100) / 100;
 }
 
-function getRiskValueForArea(items) {
+function getSummaryRiskValueForArea(items) {
     let riskSum = 0;
-    if (items.length === 0) return 0;
+    if (!items || items.length === 0) return 0;
     items.forEach(function (item) {
-        riskSum += parseFloat(item.Overall_Residual_Risk);
+        riskSum += parseFloat(item.Overall_Residual_Risk ? item.Overall_Residual_Risk : 0);
     });
-    return (riskSum / items.length).toFixed(2);
+    return Math.round((riskSum / items.length) * 100) / 100;
 }
 
 function getSummaryRiskAssessmentPdfStyles(startY) {
@@ -297,11 +393,29 @@ function getSummaryRiskAssessmentPdfStyles(startY) {
         startY: startY,
         columnStyles: {
             fullColl: {
-                halign: "center",
+                halign: "left",
                 fontStyle: "bold",
                 fontSize: 12,
             },
-
+            col1: {
+                halign: "left",
+                minCellWidth: 200,
+            },
+            col01: {
+                fontStyle: "bold",
+                halign: "center",
+                // minCellWidth: 250,
+            },
+            col02: {
+                fontStyle: "bold",
+                halign: "center",
+                // minCellWidth: 250,
+            },
+            col03: {
+                fontStyle: "bold",
+                halign: "center",
+                // minCellWidth: 250,
+            },
         },
         margin: {
             top: 20,
@@ -334,6 +448,22 @@ function getSummaryRiskAssessmentPdfStyles(startY) {
         },
         pageBreak: "auto",
     };
+}
+
+
+function getSummaryProcessAreasListData() {
+    return $.ajax({
+        beforeSend: function (xhrObj) {
+            xhrObj.setRequestHeader("Content-Type", "application/json");
+            xhrObj.setRequestHeader("Accept", "application/json");
+        },
+        type: "GET",
+        // url: window.SITE_LOCATION_URL + "/SiteAssets/app/process_areas.txt",
+        url: window.SITE_LOCATION_URL + "/_api/web/lists/getbytitle('Business Process Areas')/items?$top=50000",
+        dataType: "json",
+    }).then(function (res) {
+        return res.value;
+    });
 }
 
 function getSummaryRiskAssessmentListData() {
