@@ -129,25 +129,25 @@ function generateBPARiskAssessmentPdf(
         table = [
             {
                 col1: "Total Risks in Business Process Area",
-                col2: currentRiskAssessment.length,
+                col2: currentRiskAssessment.length !== 0 ? currentRiskAssessment.length : "-",
             }, {
                 col1: "List of Risks",
                 col2: riskAssessmentList,
             }, {
                 col1: "Related Findings",
-                col2: currentFindingAnalysis.length,
+                col2: currentFindingAnalysis.length !== 0 ? currentFindingAnalysis.length : "-",
             }, {
                 col1: "List of Findings",
                 col2: findingAnalysisList,
             }, {
                 col1: "Financial Statements Impacted",
-                col2: currentFinancialStatementImpact.length,
+                col2: currentFinancialStatementImpact.length !== 0 ? currentFinancialStatementImpact.length : "-",
             }, {
                 col1: "List of Financial Statements",
                 col2: financialStatementImpactList,
             }, {
                 col1: "Financial Statement Line Items Impacted",
-                col2: currentFinancialStatement.length,
+                col2: currentFinancialStatement.length !== 0 ? currentFinancialStatement.length : "-",
             }, {
                 col1: "List of Financial Statement Line Items Impacted",
                 col2: financialStatementList,
@@ -176,15 +176,11 @@ function generateBPARiskAssessmentPdf(
 
 function getRiskValueForArea(items) {
     let riskSum = 0;
-<<<<<<< HEAD
-    if (items.length === 0) return 0;
-=======
-    if(items.length === 0) return 0;
->>>>>>> 11e2f258208d4523f5fe4b1962d6fa22a8120042
+    if (!items || items.length === 0) return 0;
     items.forEach(function (item) {
-        riskSum += parseFloat(item.Overall_Residual_Risk);
+        riskSum += parseFloat(item.Overall_Residual_Risk ? item.Overall_Residual_Risk : 0);
     });
-    return (riskSum / items.length).toFixed(2);
+    return Math.round((riskSum / items.length) * 100) / 100;
 }
 
 function getBPARiskAssessmentPdfStyles(startY) {
