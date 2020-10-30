@@ -52,7 +52,7 @@ function generateRisksPdf(data) {
     },
     {
       title: "Related\nInternal\nControl/Gap",
-      dataKey: "Related_x0020_Internal_x0020_Con",
+      dataKey: "RelatedInternalControlGap",
     },
     {
       title: "Residual\nRisk\nRating",
@@ -77,6 +77,8 @@ function generateRisksPdf(data) {
   ];
   let table = data.map(function (i) {
     let newItem = i;
+    newItem.Risk_Assertions = newItem.Risk_Assertions ? newItem.Risk_Assertions.map(function (x) { return x.Title; }) : "";
+    newItem.RelatedInternalControlGap = newItem.RelatedInternalControlGap ? newItem.RelatedInternalControlGap.map(function (x) { return x.Title; }) : "";
     newItem.Overall_Inherent_Risk = Math.round(parseFloat(newItem.Overall_Inherent_Risk) * 100) / 100;
     newItem.Risk_Description = i.Risk_Description
       ? i.Risk_Description + "\n"
@@ -172,7 +174,7 @@ function getRisksListData() {
       xhrObj.setRequestHeader("Accept", "application/json");
     },
     type: "GET",
-    url: window.SITE_LOCATION_URL + "/_api/web/lists/getbytitle('Risk Assessment')/items?$top=50000",
+    url: window.SITE_LOCATION_URL + "/_api/web/lists/getbytitle('Risk Assessment')/items?$top=50000&$select=*,Risk_Assertions/Title,RelatedInternalControlGap/Title&$expand=Risk_Assertions,RelatedInternalControlGap",
     dataType: "json",
   }).then(function (res) {
     return res.value;

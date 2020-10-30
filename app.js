@@ -27,13 +27,15 @@ function exportBPARiskAssessment() {
 }
 
 function exportSummaryRiskAssessment() {
-  getSummaryRiskAssessmentListData().then(function (res) {
-    getInternalControlsRiskAssessmentListData().then(function (internalCOntrolsRes) {
-      let groupedData = groupBy(res, 'Business_Process_AreaId');
-      let groupedInternalControls = groupBy(internalCOntrolsRes, 'Business_Process_AreaId');
-      var doc = generateSummaryRiskAssessmentPdf(groupedData, groupedInternalControls);
-      doc.save("Summary Risk Assessment.pdf");
-    });
+  Promise.all([
+    getSummaryProcessAreasListData(),
+    getSummaryRiskAssessmentListData(),
+    getInternalControlsRiskAssessmentListData()
+  ]).then(function (res) {
+    let groupedData = groupBy(res[1], 'Business_Process_AreaId');
+    let groupedInternalControls = groupBy(res[2], 'Business_Process_AreaId');
+    var doc = generateSummaryRiskAssessmentPdf(res[0], groupedData, groupedInternalControls);
+    doc.save("Summary Risk Assessment.pdf");
   });
 }
 

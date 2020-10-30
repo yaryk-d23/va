@@ -31,7 +31,7 @@ function generateRiskFactorPdf(data) {
   let table = [];
   data.forEach(function (item) {
     table.push({
-      fullColl: item.Title,
+      fullColl: item.Title + " - " + Math.round((item.RiskWeighting * 100) * 100) / 100 + "%",
     });
     table.push({
       fullColl: item.Risk_x0020_Factor_x0020_Descript,
